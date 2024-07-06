@@ -40,7 +40,7 @@ export default function AboutPage() {
                             blurb={`Passionate about developing code for controlling physical components in Java through WPILib. Programmer at FRC team 321 for 3 years. `}
                         />
                     </Expertise>
-                    <Expertise projects={[]} projsHeight={0}>
+                    <Expertise projects={[{ to: 'attd-trkr', title: 'Attendance Tracker' }]} projsHeight={100}>
                         <ExpertiseBody
                             title='Frontend Design'
                             blurb={`Worked with react and react native to build fluid apps for the web and mobile devices. `}
