@@ -1,38 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    height: 40vmin;
+    pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+body {
+    background-color: black !important;
+}
+
+* {
+    font-family: 'Roboto Mono';
+    font-style: normal;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    scrollbar-width: none;
+}
+
+/* *,
+a {
+    background-color: #141724;
+    font-family: 'Consolas';
+    color: #fff; */
+/* } */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a {
+    /* text-decoration: underline; */
+    color: var(--bs-gray-400) !important;
+}
+
+p {
+    font-size: 24px;
+}
+
+@media (max-width: 1000px) {
+    p {
+        font-size: 16px;
+    }
+}
+
+*::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
 }
