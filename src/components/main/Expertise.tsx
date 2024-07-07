@@ -1,7 +1,5 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ReactNode, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import { useMediaQuery } from 'react-responsive';
 

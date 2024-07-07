@@ -39,8 +39,8 @@ function App() {
             <BrowserRouter>
                 <div>
                     <Navbar showBg={scrolledDown}>
-                        <NavbarHashLink path={'/#home-intro'} title={'Home'}></NavbarHashLink>
-                        <NavbarHashLink path={'/#about'} title={'About Me'}></NavbarHashLink>
+                        <NavbarItem path={'/'} title={'Home'}></NavbarItem>
+                        {/* <NavbarItem path={'/about'} title={'About Me'}></NavbarItem> */}
                         <NavbarItem path={'/projects'} title={'Projects'}></NavbarItem>
                     </Navbar>
                     <div

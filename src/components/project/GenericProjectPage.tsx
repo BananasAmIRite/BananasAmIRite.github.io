@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { motion as m, stagger } from 'framer-motion';
+import { motion as m } from 'framer-motion';
 import CoolLink from '../CoolLink';
 
 export interface ProjectPageProps {

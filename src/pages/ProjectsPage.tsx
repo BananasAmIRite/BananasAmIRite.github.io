@@ -1,8 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { ScrollCard, ScrollCardContainer } from '../components/ScrollCard';
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
-import GenericProjectPage, { makeGenericProject } from '../components/project/GenericProjectPage';
-import ProjectDetails, { ProjectDetailsContainer } from '../components/project/ProjectDetails';
+import { ReactNode, useRef, useState } from 'react';
+import { makeGenericProject } from '../components/project/GenericProjectPage';
 import { useLocation } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import Robo2023Project from './projects/robo-2023/Robo2023Project';

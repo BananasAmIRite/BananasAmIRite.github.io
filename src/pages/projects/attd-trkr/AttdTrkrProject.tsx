@@ -1,4 +1,3 @@
-import { exit } from 'process';
 import GenericProjectPage from '../../../components/project/GenericProjectPage';
 import ProjectDetails, { ProjectDetailsContainer } from '../../../components/project/ProjectDetails';
 

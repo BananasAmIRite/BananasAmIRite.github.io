@@ -1,12 +1,9 @@
 import { useEffect, useState } from 'react';
 import useTypedText from '../hooks/useTypedText';
-import { Parallax, ParallaxBanner, useParallax } from 'react-scroll-parallax';
-import { SpringValue, animated, useScroll } from 'react-spring';
 import { motion } from 'framer-motion';
 import { NavLink } from 'react-router-dom';
 import ScrollIndicator from '../components/ScrollIndicator';
-import AboutPage from './AboutPage';
-import { HashLink } from 'react-router-hash-link';
+import ExpertiseList from '../components/main/ExpertiseList';
 
 function MainPage() {
     const [scroll, setScroll] = useState(0);
@@ -59,7 +56,6 @@ function MainPage() {
                     <NavLink style={{ textDecoration: 'underline', fontSize: '36px' }} to='/projects'>
                         See My Projects
                     </NavLink>
-                    {/* <LinkNavBar objects={navBarObjects} /> */}
                 </div>
 
                 <div
@@ -105,20 +101,9 @@ function MainPage() {
             </div>
 
             <div style={{ width: '100%', height: '100vh', backgroundColor: 'transparent' }} id='about'>
-                <AboutPage />
+                <ExpertiseList />
             </div>
         </motion.div>
-        // {/* <div
-        //     style={{
-        //         height: '100vh',
-        //         width: '100%',
-        //         backgroundColor: '#2D3FFF',
-        //         position: 'relative',
-        //         padding: '10%',
-        //     }}
-        //     // translateY={['0vh', '-100vh', 'easeInOut']}
-        //     // easing={[0.1, 0.5, 0.9]}
-        // ></div> */}
     );
 }
 
