@@ -9,15 +9,6 @@ import Navbar, { NavbarHashLink, NavbarItem } from './components/Navbar';
 import { useEffect, useRef, useState } from 'react';
 import CoolBackgroundAnimation from './components/CoolBackgroundAnimation';
 
-const router = createBrowserRouter(
-    createRoutesFromElements(
-        <Route path='/' element={<MainPage />}>
-            <Route path='projects' element={<ProjectsPage />} />
-            {/* ... etc. */}
-        </Route>
-    )
-);
-
 function App() {
     const mainContainer = useRef<HTMLDivElement>(null);
     const [scrolledDown, setScrolledDown] = useState(false);

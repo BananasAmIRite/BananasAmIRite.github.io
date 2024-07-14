@@ -2,10 +2,10 @@ import GenericProjectPage, { makeGenericProject } from '../../../components/proj
 import ProjectDetails, { ProjectDetailsContainer } from '../../../components/project/ProjectDetails';
 import { ProjectBlurb } from '../../ProjectsPage';
 
-export function AttdTrkrProject(props: { onExit: () => void; key: string }) {
+export function NaturalSelectionProject(props: { onExit: () => void; key: string }) {
     return (
         <GenericProjectPage
-            title={'Attendance Tracker'}
+            title={'Natural Selection Simulation'}
             {...props}
             titleChildren={
                 <ProjectDetailsContainer
@@ -59,22 +59,29 @@ export function AttdTrkrProject(props: { onExit: () => void; key: string }) {
     );
 }
 
-const AttdTrkrData: ProjectBlurb = {
-    id: 'attd-trkr',
-    projPage: makeGenericProject(AttdTrkrProject),
-    title: 'Attendance Tracker',
-    image: '/projects/attd-trkr/banner.png',
+const NaturalSelectionData: ProjectBlurb = {
+    id: 'nss',
+    title: 'Natural Selection Simulation',
+    image: '/projects/nss/banner.png',
     blurb: (
         <>
             <p>
-                This project relieves people of the hassle of taking attendance on my robotics team. It is an Android
-                app that reads student ID cards through NFC IDs or barcodes and stores each instance of the scan in a
-                google sheet.
+                This project is a simple simulation of how traits are optimized through natural selection, inspired by a{' '}
+                <a
+                    style={{
+                        textDecoration: 'underline',
+                    }}
+                    href={'https://youtu.be/0ZGbIKd0XrM'}
+                >
+                    video by Primer
+                </a>
+                . It allows the users to create traits and choose how they affect an individual through an API and then
+                play back the simulation at different speeds.
             </p>
-
-            <a href='https://github.com/BananasAmIRite/robo-attendance-tracker'>View the Project</a>
+            <a href='https://github.com/BananasAmIRite/NaturalSelectionSimulation'>View the Project</a>
         </>
     ),
+    projPage: makeGenericProject(NaturalSelectionProject),
 };
 
-export default AttdTrkrData;
+export default NaturalSelectionData;

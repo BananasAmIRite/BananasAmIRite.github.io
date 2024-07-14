@@ -20,7 +20,15 @@ export default function ExpertiseList() {
             >
                 <h1>I'm experienced in: </h1>
                 <ExpertiseContainer>
-                    <Expertise projects={[]} projsHeight={0}>
+                    <Expertise
+                        projects={[
+                            {
+                                to: 'peddie-2023',
+                                title: 'PickupTrash',
+                            },
+                        ]}
+                        projsHeight={100}
+                    >
                         <ExpertiseBody
                             title='Backend Development'
                             blurb={`Over 5 years of development experience with server-side applications using Node.JS with both
@@ -44,6 +52,18 @@ export default function ExpertiseList() {
                         <ExpertiseBody
                             title='Frontend Design'
                             blurb={`Worked with react and react native to build fluid apps for the web and mobile devices. `}
+                        />
+                    </Expertise>
+                    <Expertise
+                        projects={[
+                            { to: 'robo-simulate', title: 'Mechanism Simulation' },
+                            { to: 'nss', title: 'Natural Selection' },
+                        ]}
+                        projsHeight={150}
+                    >
+                        <ExpertiseBody
+                            title='Simulations'
+                            blurb={`Created interactive models to simulate different physical phenomena (eg. natural selection, kinematics)`}
                         />
                     </Expertise>
                 </ExpertiseContainer>

@@ -47,9 +47,10 @@ export function Expertise(props: {
                     ? {
                           flexGrow: 1,
                       }
-                    : { flex: '1 1 0' }),
+                    : { flex: '1 1 25%' }),
                 overflow: 'hidden',
                 cursor: 'pointer',
+                maxWidth: isSmallScreen ? '100%' : '33%',
             }}
             initial={'preClosed'}
             whileInView={open ? 'open' : 'closed'}
@@ -106,6 +107,7 @@ export function ExpertiseContainer(props: { children?: ReactNode }) {
                 justifyContent: 'center',
                 marginTop: '50px',
                 gap: '50px',
+                flexWrap: 'wrap',
             }}
         >
             {props.children}

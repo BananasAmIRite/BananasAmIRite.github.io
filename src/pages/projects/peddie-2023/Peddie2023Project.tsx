@@ -2,10 +2,10 @@ import GenericProjectPage, { makeGenericProject } from '../../../components/proj
 import ProjectDetails, { ProjectDetailsContainer } from '../../../components/project/ProjectDetails';
 import { ProjectBlurb } from '../../ProjectsPage';
 
-export function AttdTrkrProject(props: { onExit: () => void; key: string }) {
+export function Peddie2023Project(props: { onExit: () => void; key: string }) {
     return (
         <GenericProjectPage
-            title={'Attendance Tracker'}
+            title={'PickupTrash'}
             {...props}
             titleChildren={
                 <ProjectDetailsContainer
@@ -52,29 +52,28 @@ export function AttdTrkrProject(props: { onExit: () => void; key: string }) {
                     width: '100%',
                     height: '100vh',
                     backgroundColor: 'transparent',
-                    // , backgroundColor: 'var(--bs-gray-700)'
                 }}
             ></div>
         </GenericProjectPage>
     );
 }
 
-const AttdTrkrData: ProjectBlurb = {
-    id: 'attd-trkr',
-    projPage: makeGenericProject(AttdTrkrProject),
-    title: 'Attendance Tracker',
-    image: '/projects/attd-trkr/banner.png',
+const Peddie2023Data: ProjectBlurb = {
+    id: 'peddie-2023',
+    title: 'PickupTrash',
+
+    image: '/projects/peddie-2023/banner.png',
     blurb: (
         <>
             <p>
-                This project relieves people of the hassle of taking attendance on my robotics team. It is an Android
-                app that reads student ID cards through NFC IDs or barcodes and stores each instance of the scan in a
-                google sheet.
+                Winner of the 2023 PeddieHacks Environment Track. Reminds users to pick up a piece of trash and throw it
+                away. It uses AI to detect whether or not an item is trash, and picking up a piece of trash and throwing
+                it away will allow the user to go on a streak.{' '}
             </p>
-
-            <a href='https://github.com/BananasAmIRite/robo-attendance-tracker'>View the Project</a>
+            <a href='https://github.com/LancerJawns/peddie-hacks-2023'>View the Project</a>
         </>
     ),
+    projPage: makeGenericProject(Peddie2023Project),
 };
 
-export default AttdTrkrData;
+export default Peddie2023Data;

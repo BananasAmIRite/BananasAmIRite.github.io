@@ -8,7 +8,6 @@ import React, {
     useRef,
     useState,
 } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { isChrome, isChromium } from 'react-device-detect';
 
 export interface ScrollCardProps {
@@ -30,7 +29,6 @@ export interface ScrollCardProps {
 }
 
 export function ScrollCard(props: ScrollCardProps) {
-    const navigate = useNavigate();
     const [hovering, setHovering] = useState<boolean>(false);
 
     const baseStyle: CSSProperties = {
@@ -39,7 +37,8 @@ export function ScrollCard(props: ScrollCardProps) {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        overflow: 'hidden',
+        overflowX: 'hidden',
+        overflowY: props.active ? 'scroll' : 'hidden',
         position: 'relative',
 
         userSelect: 'none',
@@ -71,6 +70,7 @@ export function ScrollCard(props: ScrollCardProps) {
                 {props.image ? (
                     <img
                         src={props.image}
+                        alt={'Project'}
                         style={{
                             height: '100%',
                             width: '100%',
@@ -154,15 +154,18 @@ export const ScrollCardContainer = forwardRef((props: ScrolLCardContainerProps, 
         const lowestIndex = distances.indexOf(Math.min(...distances));
         setScrollLengths(scrollLengths);
 
+        // console.log(currentScroll);
+
         // SKILL ISSUE: page jumping caused by this issue: https://issues.chromium.org/issues/327554079
-        if (lowestNum <= 2 || !(isChromium || isChrome)) setActive(lowestIndex);
+        if (lowestNum <= 5 || !(isChromium || isChrome)) setActive(lowestIndex);
     };
 
     useEffect(() => {
         container.current?.addEventListener('scroll', onScroll);
+        const curr = container.current;
         onScroll();
         return () => {
-            container.current?.removeEventListener('scroll', onScroll);
+            curr?.removeEventListener('scroll', onScroll);
         };
     }, []);
 

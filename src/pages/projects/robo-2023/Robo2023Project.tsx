@@ -1,7 +1,8 @@
-import GenericProjectPage from '../../../components/project/GenericProjectPage';
+import GenericProjectPage, { makeGenericProject } from '../../../components/project/GenericProjectPage';
 import ProjectDetails, { ProjectDetailsContainer } from '../../../components/project/ProjectDetails';
+import { ProjectBlurb } from '../../ProjectsPage';
 
-export default function Robo2023Project(props: { onExit: () => void; key: string }) {
+export function Robo2023Project(props: { onExit: () => void; key: string }) {
     return (
         <GenericProjectPage
             title={'FRC 2023 Robot'}
@@ -57,3 +58,24 @@ export default function Robo2023Project(props: { onExit: () => void; key: string
         </GenericProjectPage>
     );
 }
+
+const Robo2023Data: ProjectBlurb = {
+    id: 'robo-2023',
+    projPage: makeGenericProject(Robo2023Project),
+    title: 'Lucy',
+
+    image: '/projects/robo-2023/banner.jpg',
+    blurb: (
+        <>
+            <p>
+                Lucy was the robot FRC team 321 created for the 2023 season of FRC, Charged Up, where robots were tasked
+                with scoring cones and cubes onto a set area. The software, programmed in Java, featured a custom
+                library for planning autonomous paths, various setpoints and modes for scoring the game pieces.
+            </p>
+
+            <a href='https://github.com/RoboLancers/FRC-Main-2023'>View the Project</a>
+        </>
+    ),
+};
+
+export default Robo2023Data;
