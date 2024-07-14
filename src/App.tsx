@@ -1,11 +1,9 @@
 import './App.css';
-import { BrowserRouter, Route, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
-import MainPage from './pages/MainPage';
-import ProjectsPage from './pages/ProjectsPage';
+import { HashRouter } from 'react-router-dom';
 
 import './colors/palette.scss';
 import MainOverlayRoutes from './routes/MainOverlayRoutes';
-import Navbar, { NavbarHashLink, NavbarItem } from './components/Navbar';
+import Navbar, { NavbarItem } from './components/Navbar';
 import { useEffect, useRef, useState } from 'react';
 import CoolBackgroundAnimation from './components/CoolBackgroundAnimation';
 
@@ -27,7 +25,7 @@ function App() {
 
     return (
         <>
-            <BrowserRouter>
+            <HashRouter>
                 <div>
                     <Navbar showBg={scrolledDown}>
                         <NavbarItem path={'/'} title={'Home'}></NavbarItem>
@@ -57,7 +55,7 @@ function App() {
                         <MainOverlayRoutes />
                     </div>
                 </div>
-            </BrowserRouter>
+            </HashRouter>
         </>
     );
 }
