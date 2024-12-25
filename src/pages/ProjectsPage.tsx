@@ -1,14 +1,16 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { ScrollCard, ScrollCardContainer } from '../components/ScrollCard';
 import { ReactNode, useRef, useState } from 'react';
-import { makeGenericProject } from '../components/project/GenericProjectPage';
 import { useLocation } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
-import Robo2023Project from './projects/robo-2023/Robo2023Project';
-import Robo2024Project from './projects/robo-2024/Robo2024Project';
-import AttdTrkrProject from './projects/attd-trkr/AttdTrkrProject';
+import AttdTrkrData from './projects/attd-trkr/AttdTrkrProject';
+import Robo2023Data from './projects/robo-2023/Robo2023Project';
+import Robo2024Data from './projects/robo-2024/Robo2024Project';
+import RoboSimulateData from './projects/robo-simulate/RoboSimulateProject';
+import NaturalSelectionData from './projects/nss/NaturalSelectionProject';
+import Peddie2023Data from './projects/peddie-2023/Peddie2023Project';
 
-interface ProjectBlurb {
+export interface ProjectBlurb {
     id: string;
     title: string;
     blurb: ReactNode;
@@ -19,92 +21,33 @@ interface ProjectBlurb {
 }
 
 const projectBlurbs: ProjectBlurb[] = [
-    {
-        id: 'attd-trkr',
-        projPage: makeGenericProject(AttdTrkrProject),
-        title: 'Attendance Tracker',
-
-        // image: '/projects/attd-trkr/banner.jpg',
-        blurb: (
-            <>
-                <p>
-                    This project solves the issue of people not taking attendance on my robotics team. It is an Android
-                    app that reads student ID cards through NFC IDs or barcodes and stores each instance of the scan in
-                    a google sheet.
-                </p>
-
-                <a href='https://github.com/BananasAmIRite/robo-attendance-tracker'>View the Project</a>
-            </>
-        ),
-    },
-
-    {
-        id: 'robo-2023',
-        projPage: makeGenericProject(Robo2023Project),
-        title: 'Lucy',
-
-        image: '/projects/robo-2023/banner.jpg',
-        blurb: (
-            <>
-                <p>
-                    Lucy was the robot FRC team 321 created for the 2023 season of FRC, Charged Up, where robots were
-                    tasked with scoring cones and cubes onto a set area. The software, programmed in Java, featured a
-                    custom library for planning autonomous paths, various setpoints and modes for scoring the game
-                    pieces.
-                </p>
-
-                <a href='https://github.com/RoboLancers/FRC-Main-2023'>View the Project</a>
-            </>
-        ),
-    },
-    {
-        id: 'robo-2024',
-        // projLinkTitle: 'robo-2024',
-        title: 'LANCE-A-BOT',
-
-        image: '/projects/robo-2024/banner.jpg',
-        blurb: (
-            <>
-                <p>
-                    LANCE-A-BOT was the robot FRC team 427 created for the 2024 season of FRC, Crescendo, where robots
-                    had to score notes (orange foam rings) into different areas. The robot, which uses a swerve drive,
-                    features multiple autonomous modes that accurately shoots notes and extensive driver-side automation
-                    that allows drivers to focus on the game rather than the robot.
-                </p>
-                <a href='https://github.com/RoboLancers/FRC427-Main-2024'>View the Project</a>
-            </>
-        ),
-        projPage: makeGenericProject(Robo2024Project),
-    },
+    AttdTrkrData,
+    RoboSimulateData,
+    Peddie2023Data,
+    Robo2023Data,
+    Robo2024Data,
+    NaturalSelectionData,
 ];
 
 export default function ProjectsPage() {
-    const [viewingProject, setViewingProj] = useState<ReactNode | null>(null);
+    const [viewingProject] = useState<ReactNode | null>(null);
     const containerRef = useRef();
-    const [viewingIndex, setViewingIndex] = useState<number>(-1);
+    const [viewingIndex] = useState<number>(-1);
 
     const location = useLocation();
 
-    // useEffect(() => {
-    //     if (location.pathname !== )
-    //     const projIndexFound = projectBlurbs.findIndex((e) => '#' + e.id === location.hash);
-    //     if (projIndexFound !== -1) {
-    //         goToProject(projIndexFound, projectBlurbs[projIndexFound]);
-    //     }
-    // }, [location]);
-
     const goToProject = (index: number, e: ProjectBlurb) => {
-        if (!e.projPage) return;
-        setViewingIndex(index);
-        setTimeout(() => {
-            if (!e.projPage) return;
-            setViewingProj(
-                e.projPage(() => {
-                    setViewingProj(null);
-                    setViewingIndex(-1);
-                }, `PROJ-${e.id}`)
-            );
-        }, 500);
+        // if (!e.projPage) return;
+        // setViewingIndex(index);
+        // setTimeout(() => {
+        //     if (!e.projPage) return;
+        //     setViewingProj(
+        //         e.projPage(() => {
+        //             setViewingProj(null);
+        //             setViewingIndex(-1);
+        //         }, `PROJ-${e.id}`)
+        //     );
+        // }, 500);
     };
 
     // const isSmallScreen = useMediaQuery({ query: '(max-width: 1000px)' });

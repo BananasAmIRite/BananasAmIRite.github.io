@@ -2,10 +2,10 @@ import GenericProjectPage, { makeGenericProject } from '../../../components/proj
 import ProjectDetails, { ProjectDetailsContainer } from '../../../components/project/ProjectDetails';
 import { ProjectBlurb } from '../../ProjectsPage';
 
-export function AttdTrkrProject(props: { onExit: () => void; key: string }) {
+export function RoboSimulateProject(props: { onExit: () => void; key: string }) {
     return (
         <GenericProjectPage
-            title={'Attendance Tracker'}
+            title={'Robot Mechanism Visualization'}
             {...props}
             titleChildren={
                 <ProjectDetailsContainer
@@ -20,8 +20,12 @@ export function AttdTrkrProject(props: { onExit: () => void; key: string }) {
                         accentColor='var(--bs-gray-600)'
                         style={{
                             height: '200px',
-                            width: '200px',
+                            borderRadius: '10px',
+                            padding: '5px',
                             color: 'var(--bs-gray-100)',
+                            width: '200px',
+                            justifyContent: 'center',
+                            display: 'flex',
                         }}
                     >
                         Helllo
@@ -30,8 +34,12 @@ export function AttdTrkrProject(props: { onExit: () => void; key: string }) {
                         accentColor='var(--bs-gray-600)'
                         style={{
                             height: '200px',
-                            width: '200px',
+                            borderRadius: '10px',
+                            padding: '5px',
                             color: 'var(--bs-gray-100)',
+                            width: '200px',
+                            justifyContent: 'center',
+                            display: 'flex',
                         }}
                     >
                         Helllo
@@ -51,22 +59,22 @@ export function AttdTrkrProject(props: { onExit: () => void; key: string }) {
     );
 }
 
-const AttdTrkrData: ProjectBlurb = {
-    id: 'attd-trkr',
-    projPage: makeGenericProject(AttdTrkrProject),
-    title: 'Attendance Tracker',
-    image: '/projects/attd-trkr/banner.png',
+const RoboSimulateData: ProjectBlurb = {
+    id: 'robo-simulate',
+    title: 'Mechanism Visualizer',
+
+    image: '/projects/robo-simulate/banner.png',
     blurb: (
         <>
             <p>
-                This project relieves people of the hassle of taking attendance on my robotics team. It is an Android
-                app that reads student ID cards through NFC IDs or barcodes and stores each instance of the scan in a
-                google sheet.
+                This is a mechanism visualizer made for FTC bots inspired by FRC6328's AdvantageScope application. It
+                allows programmers to simulate how their code would affect a mechanism in different states (eg. PID
+                changing the arm of a robot) without actually needing a physical mechanism to test on.
             </p>
-
-            <a href='https://github.com/BananasAmIRite/robo-attendance-tracker'>View the Project</a>
+            <a href='https://github.com/BananasAmIRite/robot-simulation-client'>View the Project</a>
         </>
     ),
+    projPage: makeGenericProject(RoboSimulateProject),
 };
 
-export default AttdTrkrData;
+export default RoboSimulateData;

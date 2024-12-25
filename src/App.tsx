@@ -1,7 +1,5 @@
 import './App.css';
-import { BrowserRouter, Route, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
-import MainPage from './pages/MainPage';
-import ProjectsPage from './pages/ProjectsPage';
+import { HashRouter } from 'react-router-dom';
 
 import './colors/palette.scss';
 import MainOverlayRoutes from './routes/MainOverlayRoutes';
@@ -41,7 +39,7 @@ function App() {
         <BGAnimationContext.Provider
             value={{ animateFunc: bgFunc, setAnimateFunc: (f) => setBgFunc(() => f), bgAnimRef }}
         >
-            <BrowserRouter>
+            <HashRouter>
                 <div>
                     <Navbar showBg={scrolledDown}>
                         <NavbarItem path={'/'} title={'Home'}></NavbarItem>
@@ -71,7 +69,7 @@ function App() {
                         <MainOverlayRoutes />
                     </div>
                 </div>
-            </BrowserRouter>
+            </HashRouter>
         </BGAnimationContext.Provider>
     );
 }
