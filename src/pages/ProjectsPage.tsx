@@ -94,20 +94,20 @@ export default function ProjectsPage() {
     // }, [location]);
 
     const goToProject = (index: number, e: ProjectBlurb) => {
-        // if (!e.projPage) return;
-        // setViewingIndex(index);
-        // setTimeout(() => {
-        //     if (!e.projPage) return;
-        //     setViewingProj(
-        //         e.projPage(() => {
-        //             setViewingProj(null);
-        //             setViewingIndex(-1);
-        //         }, `PROJ-${e.id}`)
-        //     );
-        // }, 500);
+        if (!e.projPage) return;
+        setViewingIndex(index);
+        setTimeout(() => {
+            if (!e.projPage) return;
+            setViewingProj(
+                e.projPage(() => {
+                    setViewingProj(null);
+                    setViewingIndex(-1);
+                }, `PROJ-${e.id}`)
+            );
+        }, 500);
     };
 
-    const isSmallScreen = useMediaQuery({ query: '(max-width: 1000px)' });
+    // const isSmallScreen = useMediaQuery({ query: '(max-width: 1000px)' });
 
     return (
         <>
@@ -128,8 +128,8 @@ export default function ProjectsPage() {
                     ref={containerRef}
                     cardStyles={{
                         cardStyle: {
-                            marginLeft: '50px',
-                            marginRight: '50px',
+                            marginLeft: '2vw',
+                            marginRight: '2vw',
                             transition: 'background-color 0.25s, border-radius 0.25s',
                             color: 'var(--bs-gray-100)',
                         },
@@ -177,7 +177,10 @@ export default function ProjectsPage() {
                             />
                         );
                     })}
-                    cardWidth={isSmallScreen ? '80vw' : '60vw'}
+                    cardWidth={
+                        // isSmallScreen ? '80vw' :
+                        '60vw'
+                    }
                     cardHeight={'80vh'}
                     sideReductionPercent={50}
                 />

@@ -9,7 +9,17 @@ export default function ProjectDetails(props: { style?: CSSProperties; children?
 
     return (
         <m.div
-            style={{ backgroundColor: 'transparent', transition: 'background-color 0.25s', ...props.style }}
+            style={{
+                backgroundColor: 'transparent',
+                transition: 'background-color 0.25s',
+                padding: '10px',
+                justifyContent: 'center',
+                display: 'flex',
+                borderRadius: '10px',
+                flexDirection: 'column',
+                color: 'var(--bs-gray-100)',
+                ...props.style,
+            }}
             whileHover={{ backgroundColor: props.accentColor }}
             variants={detailsVariant}
         >
@@ -46,5 +56,44 @@ export function ProjectDetailsContainer(props: { style?: CSSProperties; children
         >
             {props.children}
         </m.div>
+    );
+}
+
+export function ProjectDetailsTitle(props: { children?: ReactNode }) {
+    return (
+        <div
+            style={{
+                textDecoration: 'underline',
+                fontSize: '16px',
+                padding: '10px',
+                width: '100%',
+                height: '10%',
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}
+        >
+            {props.children}
+        </div>
+    );
+}
+
+export function ProjectDetailsBody(props: { children?: ReactNode }) {
+    return (
+        <div
+            style={{
+                textDecoration: 'none',
+                width: '100%',
+                height: '90%',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'start',
+                alignItems: 'start',
+                padding: '10px',
+            }}
+        >
+            <p>{props.children}</p>
+        </div>
     );
 }

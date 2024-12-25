@@ -63,12 +63,10 @@ export function NavbarHashLink(props: { path: string; title: string }) {
     useEffect(() => {
         setPathname(location.pathname);
         setHash(location.hash);
-        console.log(location.pathname, props.path);
-        console.log(location.hash, linkHash);
     }, [location]);
 
     return (
-        <div style={{ color: 'var(--bs-gray-100)' }}>
+        <div style={{ color: 'var(--bs-gray-100)', paddingTop: '1vh' }}>
             <HashLink to={props.path} style={{ textDecoration: 'none' }}>
                 <CoolLink
                     style={{ fontSize: '18px', color: 'var(--bs-gray-100)' }}

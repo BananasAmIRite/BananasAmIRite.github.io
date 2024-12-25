@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { ReactNode, createContext, useEffect, useState } from 'react';
 import useTypedText from '../hooks/useTypedText';
 import { motion } from 'framer-motion';
 import { NavLink } from 'react-router-dom';
 import ScrollIndicator from '../components/ScrollIndicator';
 import ExpertiseList from '../components/main/ExpertiseList';
+import { InterUpdateFunction } from '../components/CoolBackgroundAnimation';
 
 function MainPage() {
     const [scroll, setScroll] = useState(0);

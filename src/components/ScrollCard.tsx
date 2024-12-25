@@ -30,7 +30,6 @@ export interface ScrollCardProps {
 }
 
 export function ScrollCard(props: ScrollCardProps) {
-    const navigate = useNavigate();
     const [hovering, setHovering] = useState<boolean>(false);
 
     const baseStyle: CSSProperties = {

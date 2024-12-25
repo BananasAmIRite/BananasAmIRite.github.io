@@ -19,12 +19,7 @@ export default function Robo2023Project(props: { onExit: () => void; key: string
                         accentColor='var(--bs-gray-600)'
                         style={{
                             height: '200px',
-                            borderRadius: '10px',
-                            padding: '5px',
-                            color: 'var(--bs-gray-100)',
                             width: '200px',
-                            justifyContent: 'center',
-                            display: 'flex',
                         }}
                     >
                         Helllo
@@ -33,12 +28,7 @@ export default function Robo2023Project(props: { onExit: () => void; key: string
                         accentColor='var(--bs-gray-600)'
                         style={{
                             height: '200px',
-                            borderRadius: '10px',
-                            padding: '5px',
-                            color: 'var(--bs-gray-100)',
                             width: '200px',
-                            justifyContent: 'center',
-                            display: 'flex',
                         }}
                     >
                         Helllo

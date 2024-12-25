@@ -64,7 +64,8 @@ h3,
 h4,
 h5,
 h6,
-a {
+a,
+p {
     /* text-decoration: underline; */
     color: var(--bs-gray-400) !important;
 }

@@ -6,26 +6,29 @@ import ProjectsPage from './pages/ProjectsPage';
 import './colors/palette.scss';
 import MainOverlayRoutes from './routes/MainOverlayRoutes';
 import Navbar, { NavbarHashLink, NavbarItem } from './components/Navbar';
-import { useEffect, useRef, useState } from 'react';
-import CoolBackgroundAnimation from './components/CoolBackgroundAnimation';
+import { Dispatch, ReactNode, Ref, RefObject, createContext, useEffect, useRef, useState } from 'react';
+import CoolBackgroundAnimation, { BackgroundCircle, InterUpdateFunction } from './components/CoolBackgroundAnimation';
 
-const router = createBrowserRouter(
-    createRoutesFromElements(
-        <Route path='/' element={<MainPage />}>
-            <Route path='projects' element={<ProjectsPage />} />
-            {/* ... etc. */}
-        </Route>
-    )
-);
+export const BGAnimationContext = createContext<{
+    animateFunc: InterUpdateFunction;
+    setAnimateFunc: Dispatch<InterUpdateFunction>;
+    bgAnimRef: RefObject<{ circleList: BackgroundCircle[] }> | null;
+}>({
+    animateFunc: () => {},
+    setAnimateFunc: () => {},
+    bgAnimRef: null,
+});
 
 function App() {
     const mainContainer = useRef<HTMLDivElement>(null);
     const [scrolledDown, setScrolledDown] = useState(false);
-    const [scrollY, setScrollY] = useState(0);
+
+    const [bgFunc, setBgFunc] = useState<InterUpdateFunction>(() => () => {});
+
+    const bgAnimRef = useRef<{ circleList: BackgroundCircle[] }>(null);
 
     const handleScroll = () => {
         const position = window.scrollY ?? 0;
-        setScrollY(position);
         setScrolledDown(position > 40);
     };
 
@@ -35,12 +38,14 @@ function App() {
     }, [handleScroll]);
 
     return (
-        <>
+        <BGAnimationContext.Provider
+            value={{ animateFunc: bgFunc, setAnimateFunc: (f) => setBgFunc(() => f), bgAnimRef }}
+        >
             <BrowserRouter>
                 <div>
                     <Navbar showBg={scrolledDown}>
                         <NavbarItem path={'/'} title={'Home'}></NavbarItem>
-                        {/* <NavbarItem path={'/about'} title={'About Me'}></NavbarItem> */}
+                        <NavbarItem path={'/about'} title={'About Me'}></NavbarItem>
                         <NavbarItem path={'/projects'} title={'Projects'}></NavbarItem>
                     </Navbar>
                     <div
@@ -61,13 +66,13 @@ function App() {
                                 zIndex: '0',
                             }}
                         >
-                            <CoolBackgroundAnimation />
+                            <CoolBackgroundAnimation interUpdateFrame={bgFunc} ref={bgAnimRef} />
                         </div>
                         <MainOverlayRoutes />
                     </div>
                 </div>
             </BrowserRouter>
-        </>
+        </BGAnimationContext.Provider>
     );
 }
 

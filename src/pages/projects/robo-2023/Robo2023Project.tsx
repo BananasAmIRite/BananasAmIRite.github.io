@@ -1,5 +1,11 @@
 import GenericProjectPage from '../../../components/project/GenericProjectPage';
-import ProjectDetails, { ProjectDetailsContainer } from '../../../components/project/ProjectDetails';
+import PictureCarousel from '../../../components/project/PictureCarousel';
+import ProjectDetails, {
+    ProjectDetailsBody,
+    ProjectDetailsContainer,
+    ProjectDetailsTitle,
+} from '../../../components/project/ProjectDetails';
+import ProjectSection, { ProjectSectionBody, ProjectSectionTitle } from '../../../components/project/ProjectSection';
 
 export default function Robo2023Project(props: { onExit: () => void; key: string }) {
     return (
@@ -19,26 +25,19 @@ export default function Robo2023Project(props: { onExit: () => void; key: string
                         accentColor='var(--bs-gray-600)'
                         style={{
                             height: '200px',
-                            borderRadius: '10px',
-                            padding: '5px',
-                            color: 'var(--bs-gray-100)',
-                            width: '200px',
-                            justifyContent: 'center',
-                            display: 'flex',
+                            width: '400px',
                         }}
                     >
-                        Helllo
+                        <ProjectDetailsTitle>Languages/Frameworks Used</ProjectDetailsTitle>
+                        <ProjectDetailsBody>
+                            Java <br /> WPILib <br /> PathPlanner
+                        </ProjectDetailsBody>
                     </ProjectDetails>
                     <ProjectDetails
                         accentColor='var(--bs-gray-600)'
                         style={{
                             height: '200px',
-                            borderRadius: '10px',
-                            padding: '5px',
-                            color: 'var(--bs-gray-100)',
                             width: '200px',
-                            justifyContent: 'center',
-                            display: 'flex',
                         }}
                     >
                         Helllo
@@ -46,14 +45,19 @@ export default function Robo2023Project(props: { onExit: () => void; key: string
                 </ProjectDetailsContainer>
             }
         >
-            <div
+            <ProjectSection
                 style={{
-                    width: '100%',
-                    height: '100vh',
-                    backgroundColor: 'transparent',
-                    // , backgroundColor: 'var(--bs-gray-700)'
+                    backgroundColor: 'var(--bs-gray-800)',
+                    color: 'var(--bs-gray-400)',
                 }}
-            ></div>
+            >
+                <PictureCarousel
+                    style={{ width: '500px', height: '500px' }}
+                    images={['/projects/robo-2023/banner.jpg', '/projects/robo-2024/banner.jpg']}
+                />
+                {/* <ProjectSectionTitle>Test</ProjectSectionTitle>
+                <ProjectSectionBody>Lorem ipsum</ProjectSectionBody> */}
+            </ProjectSection>
         </GenericProjectPage>
     );
 }
