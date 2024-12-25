@@ -7,20 +7,26 @@ import ExpertiseList from '../components/main/ExpertiseList';
 import { InterUpdateFunction } from '../components/CoolBackgroundAnimation';
 
 function MainPage() {
-    const [scroll, setScroll] = useState(0);
+    const [hasScrolledDown, setScrolledDown] = useState(false);
 
     const [startTypedText, txt] = useTypedText({
         text: "Hey, I'm Jason!",
     });
 
+    const handleScroll = () => {
+        const position = window.scrollY ?? 0;
+        setScrolledDown(position > 0.1 * window.innerHeight);
+    };
+
     useEffect(() => {
-        const onScroll = () => setScroll(window.scrollY);
-        window.removeEventListener('scroll', onScroll);
-        window.addEventListener('scroll', onScroll, { passive: true });
-        setScroll(window.scrollY);
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [handleScroll]);
+
+    useEffect(() => {
         startTypedText();
-        return () => window.removeEventListener('scroll', onScroll);
     }, []);
+
     return (
         <motion.div
             initial={{ opacity: 0, transform: 'translate(0px, -100px)' }}
@@ -69,9 +75,9 @@ function MainPage() {
 
                         transition: 'opacity 0.5s, translate 0.5s',
 
-                        translate: `0px ${scroll <= 40 ? '0' : '-10'}vh`,
+                        translate: `0px ${!hasScrolledDown ? '0' : '-10'}vh`,
 
-                        opacity: scroll <= 40 ? 1 : 0,
+                        opacity: !hasScrolledDown ? 1 : 0,
                         userSelect: 'none',
                     }}
                 >
@@ -86,8 +92,8 @@ function MainPage() {
                         transition: 'opacity 0.5s, translate 0.5s',
                         height: '30px',
                         zIndex: 10,
-                        opacity: scroll <= 40 ? 1 : 0,
-                        translate: `0px ${scroll <= 40 ? '0' : '-10'}vh`,
+                        opacity: !hasScrolledDown ? 1 : 0,
+                        translate: `0px ${!hasScrolledDown ? '0' : '-10'}vh`,
                         position: 'absolute',
                         bottom: '5%',
                     }}

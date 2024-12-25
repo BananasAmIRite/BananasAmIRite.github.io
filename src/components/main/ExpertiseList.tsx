@@ -27,7 +27,6 @@ export default function ExpertiseList() {
                                 title: 'PickupTrash',
                             },
                         ]}
-                        projsHeight={100}
                     >
                         <ExpertiseBody
                             title='Backend Development'
@@ -40,15 +39,13 @@ export default function ExpertiseList() {
                             { to: 'robo-2023', title: '2023 Robot' },
                             { to: 'robo-2024', title: '2024 Robot' },
                         ]}
-                        topHeight={250}
-                        projsHeight={125}
                     >
                         <ExpertiseBody
                             title='Robotics'
                             blurb={`Passionate about developing code for controlling physical components in Java through WPILib. Programmer at FRC team 321 for 3 years. `}
                         />
                     </Expertise>
-                    <Expertise projects={[{ to: 'attd-trkr', title: 'Attendance Tracker' }]} projsHeight={100}>
+                    <Expertise projects={[{ to: 'attd-trkr', title: 'Attendance Tracker' }]}>
                         <ExpertiseBody
                             title='Frontend Design'
                             blurb={`Worked with react and react native to build fluid apps for the web and mobile devices. `}
@@ -59,7 +56,6 @@ export default function ExpertiseList() {
                             { to: 'robo-simulate', title: 'Mechanism Simulation' },
                             { to: 'nss', title: 'Natural Selection' },
                         ]}
-                        projsHeight={150}
                     >
                         <ExpertiseBody
                             title='Simulations'

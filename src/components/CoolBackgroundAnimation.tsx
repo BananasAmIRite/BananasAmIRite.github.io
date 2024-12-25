@@ -8,7 +8,6 @@ const CoolBackgroundAnimation = forwardRef<
 >((props, rf) => {
     const ref = useRef<HTMLCanvasElement>(null);
 
-    // const [rerenderCount, setRerenderCount] = useState(0);
     let rerenderCount = 0;
 
     const circles: BackgroundCircle[] = useMemo<BackgroundCircle[]>(() => [], []);
@@ -22,7 +21,7 @@ const CoolBackgroundAnimation = forwardRef<
         const width = canvas.clientWidth;
         const height = canvas.clientHeight;
 
-        // If it's resolution does not match change it
+        // If its resolution does not match change it
         if (canvas.width !== width || canvas.height !== height) {
             canvas.width = width;
             canvas.height = height;
@@ -104,6 +103,7 @@ export class BackgroundCircle {
         x: number;
         y: number;
         stay: boolean;
+        importance: number;
     } | null = null;
     constructor(
         public x: number,
@@ -163,8 +163,9 @@ export class BackgroundCircle {
         return circle;
     }
 
-    setTargetNav(x: number, y: number, stay: boolean = true) {
-        this.targetNav = { x, y, stay };
+    // importance = hackity hack hack (race conditions are mean :(( )
+    setTargetNav(x: number, y: number, stay: boolean = true, importance: number = 1) {
+        if (!this.targetNav || importance >= this.targetNav.importance) this.targetNav = { x, y, stay, importance };
     }
     cancelTargetNav() {
         this.targetNav = null;

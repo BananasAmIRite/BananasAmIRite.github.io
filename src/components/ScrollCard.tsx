@@ -141,8 +141,6 @@ export const ScrollCardContainer = forwardRef((props: ScrolLCardContainerProps, 
         getActiveIndex: () => active,
     }));
     const onScroll = () => {
-        // console.log('s', container.current?.scrollLeft);
-
         const scrollLengths = getScrollLengths(container, cardRefs);
 
         const currentScroll = container.current?.scrollLeft ?? 0;
@@ -153,8 +151,6 @@ export const ScrollCardContainer = forwardRef((props: ScrolLCardContainerProps, 
 
         const lowestIndex = distances.indexOf(Math.min(...distances));
         setScrollLengths(scrollLengths);
-
-        // console.log(currentScroll);
 
         // SKILL ISSUE: page jumping caused by this issue: https://issues.chromium.org/issues/327554079
         if (lowestNum <= 5 || !(isChromium || isChrome)) setActive(lowestIndex);

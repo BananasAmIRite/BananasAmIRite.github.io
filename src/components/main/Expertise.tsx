@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import { HashLink } from 'react-router-hash-link';
 import { useMediaQuery } from 'react-responsive';
+import { AnimateChangeInHeight } from '../util/AnimateChangeInheight';
 
 const projVariant = {
     open: (i: number) => ({
@@ -19,15 +20,8 @@ const projVariant = {
     },
 };
 
-export function Expertise(props: {
-    topHeight?: number;
-    projsHeight?: number;
-    children?: ReactNode;
-    projects: { to: string; title: string }[];
-}) {
+export function Expertise(props: { children?: ReactNode; projects: { to: string; title: string }[] }) {
     const [open, setOpen] = useState(false);
-    const topHeight = props.topHeight ?? 250;
-    const projsHeight = props.projsHeight ?? 200;
 
     const isSmallScreen = useMediaQuery({ query: '(max-width: 1000px)' });
 
@@ -35,7 +29,7 @@ export function Expertise(props: {
         <motion.div
             layout
             style={{
-                height: `${topHeight}px`,
+                // height: `${topHeight}px`,
                 // height: 'fit-content',
                 backgroundColor: 'var(--bs-gray-900)',
                 color: 'white',
@@ -57,27 +51,24 @@ export function Expertise(props: {
             onClick={() => setOpen(!open)}
             variants={{
                 open: {
-                    height: `${topHeight + projsHeight}px`,
                     x: 0,
                     opacity: 1,
                 },
                 closed: {
-                    height: `${topHeight}px`,
                     x: 0,
                     opacity: 1,
                 },
                 preClosed: {
-                    height: `${topHeight}px`,
                     x: -50,
                     opacity: 0,
                 },
             }}
         >
-            <motion.div layout='position' style={{ height: `${topHeight}px` }}>
+            <motion.div layout='position' style={{ height: 'auto' }}>
                 {props.children}
             </motion.div>
 
-            <ExpertiseProjects projects={props.projects} height={projsHeight} />
+            <ExpertiseProjects projects={props.projects} />
         </motion.div>
     );
 }
@@ -108,6 +99,7 @@ export function ExpertiseContainer(props: { children?: ReactNode }) {
                 marginTop: '50px',
                 gap: '50px',
                 flexWrap: 'wrap',
+                alignItems: 'start',
             }}
         >
             {props.children}
@@ -115,43 +107,53 @@ export function ExpertiseContainer(props: { children?: ReactNode }) {
     );
 }
 
-export function ExpertiseProjects(props: { projects: { to: string; title: string }[]; height: number }) {
+export function ExpertiseProjects(props: { projects: { to: string; title: string }[] }) {
     return (
-        <motion.div
-            style={{
-                width: '100%',
-                height: 'fit-content',
-                display: 'flex',
-                flexDirection: 'column',
-                overflow: 'hidden',
-            }}
-        >
+        <AnimateChangeInHeight>
             <motion.div
                 style={{
                     width: '100%',
-                    height: `${props.height}px`,
-                    display: 'flex',
+                    height: 'fit-content',
+                    display: 'none',
                     flexDirection: 'column',
-                    gap: '5px',
+                    overflow: 'hidden',
+                    paddingTop: '5%',
+                    paddingBottom: '5%',
                 }}
                 variants={{
-                    closed: {},
+                    closed: {
+                        display: 'none',
+                    },
                     open: {
-                        transition: {
-                            staggerChildren: 0.2,
-                            duration: 0.5,
-                        },
+                        display: 'flex',
                     },
                 }}
             >
-                {props.projects.map((e, i) => (
-                    <motion.div variants={projVariant} custom={i} key={i}>
-                        {/* hi */}
-                        <ExpertiseProject to={e.to} title={e.title} />
-                    </motion.div>
-                ))}
+                <motion.div
+                    style={{
+                        width: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '5px',
+                    }}
+                    variants={{
+                        closed: {},
+                        open: {
+                            transition: {
+                                staggerChildren: 0.2,
+                                duration: 0.5,
+                            },
+                        },
+                    }}
+                >
+                    {props.projects.map((e, i) => (
+                        <motion.div variants={projVariant} custom={i} key={i}>
+                            <ExpertiseProject to={e.to} title={e.title} />
+                        </motion.div>
+                    ))}
+                </motion.div>
             </motion.div>
-        </motion.div>
+        </AnimateChangeInHeight>
     );
 }
 
@@ -162,7 +164,9 @@ export function ExpertiseProject(props: { to: string; title: string }) {
                 style={{
                     borderRadius: '40px',
                     width: '80%',
-                    height: '40px',
+                    paddingTop: '5px',
+                    paddingBottom: '5px',
+                    paddingRight: '20px',
                     backgroundColor: 'var(--bs-gray-800)',
                     paddingLeft: '20px',
                     alignItems: 'center',

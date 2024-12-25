@@ -30,9 +30,9 @@ const projectBlurbs: ProjectBlurb[] = [
 ];
 
 export default function ProjectsPage() {
-    const [viewingProject] = useState<ReactNode | null>(null);
+    const [viewingProject, setViewingProj] = useState<ReactNode | null>(null);
     const containerRef = useRef();
-    const [viewingIndex] = useState<number>(-1);
+    const [viewingIndex, setViewingIndex] = useState<number>(-1);
 
     const location = useLocation();
 
@@ -50,7 +50,7 @@ export default function ProjectsPage() {
         // }, 500);
     };
 
-    // const isSmallScreen = useMediaQuery({ query: '(max-width: 1000px)' });
+    const isSmallScreen = useMediaQuery({ query: '(max-width: 1000px)' });
 
     return (
         <>
@@ -120,10 +120,7 @@ export default function ProjectsPage() {
                             />
                         );
                     })}
-                    cardWidth={
-                        // isSmallScreen ? '80vw' :
-                        '60vw'
-                    }
+                    cardWidth={isSmallScreen ? '80vw' : '60vw'}
                     cardHeight={'80vh'}
                     sideReductionPercent={50}
                 />

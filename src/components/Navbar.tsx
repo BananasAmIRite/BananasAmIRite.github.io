@@ -34,7 +34,6 @@ export function NavbarItem(props: { path: string; title: string }) {
 
     useEffect(() => {
         setPathname(location.pathname);
-        console.log(location.search);
     }, [location]);
 
     return (

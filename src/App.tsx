@@ -27,7 +27,7 @@ function App() {
 
     const handleScroll = () => {
         const position = window.scrollY ?? 0;
-        setScrolledDown(position > 40);
+        setScrolledDown(position > 0.1 * window.innerHeight);
     };
 
     useEffect(() => {

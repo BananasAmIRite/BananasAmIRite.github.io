@@ -13,31 +13,12 @@ export interface AboutPoint {
 export type InterUpdateFunction = (circles: BackgroundCircle[], ctx: CanvasRenderingContext2D) => void;
 
 export default function AboutBackgroundAnimation(props: { aboutPoints: AboutPoint[] }) {
-    const ref = useRef<HTMLCanvasElement>(null);
-
-    const { bgAnimRef } = useContext(BGAnimationContext);
+    const { setAnimateFunc, bgAnimRef } = useContext(BGAnimationContext);
 
     let circles: AboutBGCircle[] = [];
 
     let mouseX = 0;
     let mouseY = 0;
-
-    let mouseHovering = false;
-
-    const resizeCanvas = (canvas: HTMLCanvasElement) => {
-        // look up the size the canvas is being displayed
-        const width = canvas.clientWidth;
-        const height = canvas.clientHeight;
-
-        // If its resolution does not match change it
-        if (canvas.width !== width || canvas.height !== height) {
-            canvas.width = width;
-            canvas.height = height;
-            return true;
-        }
-
-        return false;
-    };
 
     const mouseLine = (ctx: CanvasRenderingContext2D) => {
         const width = ctx.canvas.width;
@@ -62,68 +43,28 @@ export default function AboutBackgroundAnimation(props: { aboutPoints: AboutPoin
         ctx.stroke();
     };
 
-    const render = useCallback(() => {
-        if (!ref.current) return requestAnimationFrame(render);
-        resizeCanvas(ref.current);
-        const ctx = ref.current.getContext('2d');
-        if (!ctx) return requestAnimationFrame(render);
-        ctx.imageSmoothingEnabled = false;
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-        ctx.fillRect(0, 0, ref.current.width, ref.current.height);
-        circles.forEach((c) => c.update(ctx, mouseX, mouseY));
-        if (mouseHovering) mouseLine(ctx);
-
-        requestAnimationFrame(() => render());
+    const render = useCallback<InterUpdateFunction>((actualCircles, ctx) => {
+        circles.forEach((circ) => circ.update(ctx, mouseX, mouseY));
+        mouseLine(ctx);
     }, []);
 
     useEffect(() => {
-        if (!ref.current) return;
-
-        const fr = requestAnimationFrame(() => render());
-
+        circles = (bgAnimRef?.current?.circleList ?? []).map((e) => new AboutBGCircle(e, props.aboutPoints));
         window.addEventListener('mousemove', (e) => {
             mouseX = e.offsetX;
             mouseY = e.offsetY;
         });
+        setAnimateFunc(render);
 
         return () => {
-            cancelAnimationFrame(fr);
-        };
-    }, [render]);
+            setAnimateFunc(() => {});
 
-    useEffect(() => {
-        ref.current?.addEventListener('mouseenter', () => {
-            mouseHovering = true;
-        });
-
-        ref.current?.addEventListener('mouseleave', () => {
-            mouseHovering = false;
-        });
-    }, [ref.current]);
-
-    useEffect(() => {
-        if (!ref.current) return;
-        resizeCanvas(ref.current);
-        circles = (bgAnimRef?.current?.circleList ?? []).map((e) => {
-            return new AboutBGCircle(e, props.aboutPoints, 2);
-        });
-    }, []);
-
-    useLayoutEffect(() => {
-        return () => {
-            circles.forEach((e) => e.bgCircle.setTargetNav(e.originalX, e.originalY, false));
+            circles.forEach((e) => e.bgCircle.setTargetNav(e.originalX, e.originalY, false, 100));
         };
     }, []);
 
     return (
         <>
-            <canvas
-                width='100%'
-                height='100%'
-                style={{ width: '100%', height: '100%', imageRendering: 'pixelated' }}
-                ref={ref}
-            ></canvas>
-
             <div>
                 {props.aboutPoints.map((e) => (
                     <div
@@ -144,8 +85,6 @@ export default function AboutBackgroundAnimation(props: { aboutPoints: AboutPoin
 class AboutBGCircle {
     private lastX: number;
     private lastY: number;
-    private firstRun = true;
-    private startTime!: number;
     private closestPoint!: AboutPoint;
     private closestPointAngle!: number;
     private closestPointPercent!: number;
@@ -154,22 +93,17 @@ class AboutBGCircle {
 
     public originalX: number;
     public originalY: number;
-    constructor(public bgCircle: BackgroundCircle, private aboutPoints: AboutPoint[], private timeToComplete: number) {
+    constructor(public bgCircle: BackgroundCircle, private aboutPoints: AboutPoint[]) {
         this.originalX = bgCircle.x;
         this.originalY = bgCircle.y;
         this.lastX = bgCircle.x;
         this.lastY = bgCircle.y;
+
+        this.computeClosestPoint();
     }
 
     update(ctx: CanvasRenderingContext2D, mouseX: number, mouseY: number) {
-        if (this.firstRun) {
-            this.startTime = Date.now();
-            this.runFirstRun(ctx);
-            this.firstRun = false;
-        } else {
-            this.updateSize(ctx, mouseX, mouseY);
-        }
-        this.bgCircle.draw(ctx);
+        this.updateSize(ctx, mouseX, mouseY);
         ctx.strokeStyle = 'white';
         ctx.lineWidth = this.bgCircle.radius * 2;
         ctx.beginPath();
@@ -196,7 +130,7 @@ class AboutBGCircle {
         }
     }
 
-    private runFirstRun(ctx: CanvasRenderingContext2D) {
+    private computeClosestPoint() {
         const distance = (circle: BackgroundCircle, point: AboutPoint) =>
             Math.hypot(Math.abs(point.x - circle.x), Math.abs(point.y - circle.y));
 
@@ -213,7 +147,6 @@ class AboutBGCircle {
         mouseX: number,
         mouseY: number
     ): { x: number; y: number } {
-        console.log((mouseX - ctx.canvas.width / 2) * 0.01);
         return {
             x:
                 this.closestPointX +
