@@ -1,10 +1,10 @@
-import { ReactNode, createContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useTypedText from '../hooks/useTypedText';
 import { motion } from 'framer-motion';
 import { NavLink } from 'react-router-dom';
 import ScrollIndicator from '../components/ScrollIndicator';
 import ExpertiseList from '../components/main/ExpertiseList';
-import { InterUpdateFunction } from '../components/CoolBackgroundAnimation';
+import DefaultBackgroundAnimation from '../components/animations/DefaultBackgroundAnimation';
 
 function MainPage() {
     const [hasScrolledDown, setScrolledDown] = useState(false);
@@ -13,15 +13,15 @@ function MainPage() {
         text: "Hey, I'm Jason!",
     });
 
-    const handleScroll = () => {
-        const position = window.scrollY ?? 0;
-        setScrolledDown(position > 0.1 * window.innerHeight);
-    };
-
     useEffect(() => {
+        const handleScroll = () => {
+            const position = window.scrollY ?? 0;
+            setScrolledDown(position > 0.1 * window.innerHeight);
+        };
+
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [handleScroll]);
+    }, []);
 
     useEffect(() => {
         startTypedText();
@@ -33,6 +33,7 @@ function MainPage() {
             animate={{ opacity: 1, transform: 'translate(0px, 0px)' }}
             exit={{ opacity: 0, transform: 'translate(0px, 100px)' }}
         >
+            <DefaultBackgroundAnimation />
             <div
                 style={{
                     display: 'flex',

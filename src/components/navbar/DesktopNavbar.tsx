@@ -1,10 +1,9 @@
-import React, { ReactNode, useEffect, useState } from 'react';
-import CoolLink from './CoolLink';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { ReactNode, useEffect, useState } from 'react';
+import CoolLink from '../CoolLink';
+import { Link, useLocation } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
-import { link } from 'fs';
 
-export default function Navbar(props: { showBg: boolean; children?: ReactNode }) {
+export default function DesktopNavbar(props: { showBg: boolean; children?: ReactNode }) {
     return (
         <div
             style={{
@@ -43,7 +42,6 @@ export function NavbarItem(props: { path: string; title: string }) {
                     style={{ fontSize: '18px', color: 'var(--bs-gray-100)' }}
                     decorHeight='2px'
                     active={pathname === props.path}
-                    onClick={() => {}}
                 >
                     {props.title}
                 </CoolLink>

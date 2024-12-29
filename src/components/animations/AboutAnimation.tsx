@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect, useLayoutEffect, useRef } from 'react';
-import { BackgroundCircle } from '../CoolBackgroundAnimation';
+import { BackgroundCircle, InterUpdateFunction } from './CoolBackgroundAnimation';
 import { BGAnimationContext } from '../../App';
-import AboutPointTooltip from './AboutPointLink';
+import AboutPointTooltip from '../about/AboutPointLink';
 
 export interface AboutPoint {
     x: number; // NOTE: percent
@@ -10,11 +10,10 @@ export interface AboutPoint {
     pointTo: string;
 }
 
-export type InterUpdateFunction = (circles: BackgroundCircle[], ctx: CanvasRenderingContext2D) => void;
-
 export default function AboutBackgroundAnimation(props: { aboutPoints: AboutPoint[] }) {
     const { setAnimateFunc, bgAnimRef } = useContext(BGAnimationContext);
 
+    // TODO: refactor to be more react-compliant lol
     let circles: AboutBGCircle[] = [];
 
     let mouseX = 0;
@@ -55,12 +54,6 @@ export default function AboutBackgroundAnimation(props: { aboutPoints: AboutPoin
             mouseY = e.offsetY;
         });
         setAnimateFunc(render);
-
-        return () => {
-            setAnimateFunc(() => {});
-
-            circles.forEach((e) => e.bgCircle.setTargetNav(e.originalX, e.originalY, false, 100));
-        };
     }, []);
 
     return (
@@ -83,8 +76,8 @@ export default function AboutBackgroundAnimation(props: { aboutPoints: AboutPoin
 }
 
 class AboutBGCircle {
-    private lastX: number;
-    private lastY: number;
+    private static trailingPointsLength = 1;
+    private trailingPoints: { x: number; y: number }[];
     private closestPoint!: AboutPoint;
     private closestPointAngle!: number;
     private closestPointPercent!: number;
@@ -96,22 +89,16 @@ class AboutBGCircle {
     constructor(public bgCircle: BackgroundCircle, private aboutPoints: AboutPoint[]) {
         this.originalX = bgCircle.x;
         this.originalY = bgCircle.y;
-        this.lastX = bgCircle.x;
-        this.lastY = bgCircle.y;
+        this.trailingPoints = [];
 
         this.computeClosestPoint();
     }
 
     update(ctx: CanvasRenderingContext2D, mouseX: number, mouseY: number) {
         this.updateSize(ctx, mouseX, mouseY);
-        ctx.strokeStyle = 'white';
-        ctx.lineWidth = this.bgCircle.radius * 2;
-        ctx.beginPath();
-        ctx.moveTo(this.lastX, this.lastY);
-        ctx.lineTo(this.bgCircle.x, this.bgCircle.y);
-        ctx.stroke();
-        this.lastX = this.bgCircle.x;
-        this.lastY = this.bgCircle.y;
+
+        this.updateTrailingPoints(this.bgCircle.x, this.bgCircle.y);
+        this.drawTrailingPoints(ctx);
     }
 
     private updateSize(ctx: CanvasRenderingContext2D, mouseX: number, mouseY: number) {
@@ -134,9 +121,9 @@ class AboutBGCircle {
         const distance = (circle: BackgroundCircle, point: AboutPoint) =>
             Math.hypot(Math.abs(point.x - circle.x), Math.abs(point.y - circle.y));
 
-        const sortedPoints = this.aboutPoints.sort((a, b) => distance(this.bgCircle, a) - distance(this.bgCircle, b));
-        const closest = sortedPoints[0];
-        this.closestPoint = closest;
+        // const sortedPoints = this.aboutPoints.sort((a, b) => distance(this.bgCircle, a) - distance(this.bgCircle, b));
+        // const closest = sortedPoints[0];
+        this.closestPoint = this.aboutPoints[Math.floor(Math.random() * this.aboutPoints.length)];
         this.closestPointAngle = Math.random() * 2 * Math.PI;
         this.closestPointPercent = Math.random();
     }
@@ -157,5 +144,22 @@ class AboutBGCircle {
                 distance * Math.sin(this.closestPointAngle) * this.closestPointPercent -
                 (mouseY - ctx.canvas.height / 2) * 0.01,
         };
+    }
+
+    private updateTrailingPoints(x: number, y: number) {
+        if (this.trailingPoints.length >= AboutBGCircle.trailingPointsLength) {
+            this.trailingPoints.shift();
+        }
+        this.trailingPoints.push({ x, y });
+    }
+
+    private drawTrailingPoints(ctx: CanvasRenderingContext2D) {
+        if (this.trailingPoints.length === 0) return;
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = this.bgCircle.radius * 1;
+        ctx.beginPath();
+        ctx.moveTo(this.trailingPoints[0].x * ctx.canvas.width, this.trailingPoints[0].y * ctx.canvas.height);
+        for (const p of this.trailingPoints) ctx.lineTo(p.x * ctx.canvas.width, p.y * ctx.canvas.height);
+        ctx.stroke();
     }
 }

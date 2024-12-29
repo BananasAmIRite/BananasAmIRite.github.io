@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { HashLink } from 'react-router-hash-link';
 import { useMediaQuery } from 'react-responsive';
 import { AnimateChangeInHeight } from '../util/AnimateChangeInheight';
@@ -29,11 +29,8 @@ export function Expertise(props: { children?: ReactNode; projects: { to: string;
         <motion.div
             layout
             style={{
-                // height: `${topHeight}px`,
-                // height: 'fit-content',
                 backgroundColor: 'var(--bs-gray-900)',
                 color: 'white',
-                // width: 'auto',
                 padding: '20px',
                 borderRadius: '20px',
                 position: 'relative',

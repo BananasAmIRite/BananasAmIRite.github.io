@@ -24,6 +24,10 @@ export default function AboutPointTooltip(props: {
                     opacity: 1,
                 }}
                 style={{ cursor: 'pointer', opacity: 0.5 }}
+                exit={{
+                    opacity: 0,
+                    x: '5vw',
+                }}
             >
                 <h4 style={{ width: 'fit-content', position: 'relative', margin: '0 inherit', ...props.style }}>
                     {txt}

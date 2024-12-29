@@ -1,27 +1,29 @@
 import './App.css';
 import { HashRouter } from 'react-router-dom';
-
 import './colors/palette.scss';
 import MainOverlayRoutes from './routes/MainOverlayRoutes';
-import Navbar, { NavbarHashLink, NavbarItem } from './components/Navbar';
-import { Dispatch, ReactNode, Ref, RefObject, createContext, useEffect, useRef, useState } from 'react';
-import CoolBackgroundAnimation, { BackgroundCircle, InterUpdateFunction } from './components/CoolBackgroundAnimation';
+import { NavbarItem } from './components/navbar/DesktopNavbar';
+import { Dispatch, RefObject, createContext, useEffect, useRef, useState } from 'react';
+import CoolBackgroundAnimation, {
+    BackgroundCircle,
+    InterUpdateFunction,
+} from './components/animations/CoolBackgroundAnimation';
+import Navbar from './components/navbar/Navbar';
 
 export const BGAnimationContext = createContext<{
-    animateFunc: InterUpdateFunction;
-    setAnimateFunc: Dispatch<InterUpdateFunction>;
-    bgAnimRef: RefObject<{ circleList: BackgroundCircle[] }> | null;
+    animateFunc: InterUpdateFunction | null;
+    setAnimateFunc: Dispatch<InterUpdateFunction | null>;
+    bgAnimRef: RefObject<{ circleList: BackgroundCircle[] }>;
 }>({
     animateFunc: () => {},
     setAnimateFunc: () => {},
-    bgAnimRef: null,
+    bgAnimRef: { current: { circleList: [] } },
 });
 
 function App() {
-    const mainContainer = useRef<HTMLDivElement>(null);
     const [scrolledDown, setScrolledDown] = useState(false);
 
-    const [bgFunc, setBgFunc] = useState<InterUpdateFunction>(() => () => {});
+    const [bgFunc, setBgFunc] = useState<InterUpdateFunction | null>(null);
 
     const bgAnimRef = useRef<{ circleList: BackgroundCircle[] }>(null);
 
@@ -54,14 +56,13 @@ function App() {
                             position: 'absolute',
                             overflow: 'visible',
                         }}
-                        ref={mainContainer}
                     >
                         <div
                             style={{
                                 width: '100%',
                                 height: '100%',
                                 position: 'fixed',
-                                zIndex: '0',
+                                // zIndex: '-1',
                             }}
                         >
                             <CoolBackgroundAnimation interUpdateFrame={bgFunc} ref={bgAnimRef} />

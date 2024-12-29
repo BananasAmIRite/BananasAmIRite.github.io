@@ -1,4 +1,4 @@
-import AboutBackgroundAnimation, { AboutPoint } from '../components/about/AboutAnimation';
+import AboutBackgroundAnimation, { AboutPoint } from '../components/animations/AboutAnimation';
 import { motion } from 'framer-motion';
 
 const aboutPoints: AboutPoint[] = [
@@ -11,8 +11,8 @@ const aboutPoints: AboutPoint[] = [
     {
         x: 0.5,
         y: 0.75,
-        pointName: 'Another About!',
-        pointTo: '/',
+        pointName: 'Resume',
+        pointTo: '/about/resume',
     },
 ];
 

@@ -9,6 +9,7 @@ import Robo2024Data from './projects/robo-2024/Robo2024Project';
 import RoboSimulateData from './projects/robo-simulate/RoboSimulateProject';
 import NaturalSelectionData from './projects/nss/NaturalSelectionProject';
 import Peddie2023Data from './projects/peddie-2023/Peddie2023Project';
+import DefaultBackgroundAnimation from '../components/animations/DefaultBackgroundAnimation';
 
 export interface ProjectBlurb {
     id: string;
@@ -54,6 +55,7 @@ export default function ProjectsPage() {
 
     return (
         <>
+            <DefaultBackgroundAnimation />
             <motion.div
                 style={{
                     height: '100vh',
@@ -99,7 +101,6 @@ export default function ProjectsPage() {
                                             fontSize: '48px',
                                             alignSelf: 'start',
                                             fontWeight: 700,
-                                            // letterSpacing: -1.5,
                                         }}
                                     >
                                         {e.title}
