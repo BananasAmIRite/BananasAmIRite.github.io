@@ -13,11 +13,12 @@ export default function AboutMe() {
             backdropFilter: 'blur(3px)',
             background: 'rgba(255, 255, 255, 0.1)',
             transition: {
-                delayChildren: 0.5,
+                delayChildren: 1,
+                delay: 0.5,
             },
         },
         closed: {
-            backdropFilter: '0',
+            backdropFilter: 'none',
             background: 'rgba(255, 255, 255, 0)',
             transition: {
                 delay: 0.5,
@@ -34,8 +35,18 @@ export default function AboutMe() {
             opacity: 1,
             x: 0,
             transition: {
-                // bounce: 0,
+                type: 'spring',
+                bounce: 0.5,
             },
+        },
+    };
+
+    const mediaIcons = {
+        normal: {
+            scale: 1,
+        },
+        hovered: {
+            scale: 1.2,
         },
     };
 
@@ -123,15 +134,30 @@ export default function AboutMe() {
                                 gap: '15px',
                             }}
                         >
-                            <a href={'https://github.com/BananasAmIRite'}>
+                            <motion.a
+                                href={'https://github.com/BananasAmIRite'}
+                                variants={mediaIcons}
+                                initial={'normal'}
+                                whileHover={'hovered'}
+                            >
                                 <FaGithub size={35} />
-                            </a>
-                            <a href={'https://www.instagram.com/bananasamirite/'}>
+                            </motion.a>
+                            <motion.a
+                                href={'https://www.instagram.com/bananasamirite/'}
+                                variants={mediaIcons}
+                                initial={'normal'}
+                                whileHover={'hovered'}
+                            >
                                 <FaInstagram size={35} />
-                            </a>
-                            <a href={'mailto:jasony1230@gmail.com'}>
+                            </motion.a>
+                            <motion.a
+                                href={'mailto:jasony1230@gmail.com'}
+                                variants={mediaIcons}
+                                initial={'normal'}
+                                whileHover={'hovered'}
+                            >
                                 <MdOutlineEmail size={35} />
-                            </a>
+                            </motion.a>
                         </motion.div>
                     </motion.div>
                     <div

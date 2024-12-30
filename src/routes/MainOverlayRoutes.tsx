@@ -18,7 +18,6 @@ export default function AnimatedRoutes() {
                 <Route path='/about/resume' element={<AboutResume />} />
                 <Route path='/pong' element={<PongGamePage />} />
                 <Route path='/projects' element={<ProjectsPage />} />
-                {/* <Route path='/contact' element={<ContactPage />} /> */}
             </Routes>
         </AnimatePresence>
     );

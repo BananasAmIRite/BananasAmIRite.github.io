@@ -27,15 +27,15 @@ function App() {
 
     const bgAnimRef = useRef<{ circleList: BackgroundCircle[] }>(null);
 
-    const handleScroll = () => {
-        const position = window.scrollY ?? 0;
-        setScrolledDown(position > 0.1 * window.innerHeight);
-    };
-
     useEffect(() => {
+        const handleScroll = () => {
+            const position = window.scrollY ?? 0;
+            setScrolledDown(position > 0.1 * window.innerHeight);
+        };
+
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [handleScroll]);
+    }, []);
 
     return (
         <BGAnimationContext.Provider
