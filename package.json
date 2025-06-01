@@ -31,7 +31,7 @@
     },
     "scripts": {
         "predeploy": "npm run build",
-        "deploy": "gh-pages -d build",
+        "deploy": "gh-pages -d build -r https://github.com/BananasAmIRite/BananasAmIRite.github.io",
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
