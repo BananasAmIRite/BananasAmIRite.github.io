@@ -53,9 +53,15 @@ export default function AboutMe() {
     const rightImage = {
         closed: {
             opacity: 0,
+            scale: 1,
         },
         open: {
             opacity: 1,
+            scale: 1,
+        },
+        hover: {
+            opacity: 1,
+            scale: 1.1,
         },
     };
 
