@@ -47,6 +47,15 @@ export function AttdTrkrProject(props: { onExit: () => void; key: string }) {
                     // , backgroundColor: 'var(--bs-gray-700)'
                 }}
             ></div>
+            <ProjectDetailsContainer
+                style={{
+                    justifyContent: 'space-evenly',
+                    alignItems: 'center',
+                    width: '100%',
+                    height: '100vh',
+                    backgroundColor: 'transparent',
+                }}
+            />
         </GenericProjectPage>
     );
 }
@@ -64,7 +73,11 @@ const AttdTrkrData: ProjectBlurb = {
                 google sheet.
             </p>
 
-            <a href='https://github.com/BananasAmIRite/robo-attendance-tracker'>View the Project</a>
+            <div style={{ width: '80%', display: 'flex', justifyContent: 'space-between' }}>
+                {' '}
+                <a href='https://github.com/BananasAmIRite/robo-attendance-tracker'>View the Project (v1)</a>
+                <a href='https://github.com/BananasAmIRite/attendance-tracker-rpi'>View the Project (v2)</a>
+            </div>
         </>
     ),
 };

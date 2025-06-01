@@ -68,12 +68,13 @@ export default function AboutMe() {
     const imgArrow = {
         hidden: { pathLength: 0, opacity: 0 },
         visible: (i: number) => {
-            const delay = i * 0.5;
+            const duration = 1.25;
+            const delay = i * duration * 0.4;
             return {
                 pathLength: 1,
                 opacity: 1,
                 transition: {
-                    pathLength: { delay, type: 'spring', duration: 1.25, bounce: 0 },
+                    pathLength: { delay, type: 'spring', duration, bounce: 0 },
                     opacity: { delay, duration: 0.01 },
                 },
             };
