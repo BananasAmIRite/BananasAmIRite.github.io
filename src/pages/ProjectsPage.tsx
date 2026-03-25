@@ -10,6 +10,7 @@ import RoboSimulateData from './projects/robo-simulate/RoboSimulateProject';
 import NaturalSelectionData from './projects/nss/NaturalSelectionProject';
 import Peddie2023Data from './projects/peddie-2023/Peddie2023Project';
 import DefaultBackgroundAnimation from '../components/animations/DefaultBackgroundAnimation';
+import Robo2025Data from './projects/robo-2025/Robo2025Project';
 
 export interface ProjectBlurb {
     id: string;
@@ -25,8 +26,9 @@ const projectBlurbs: ProjectBlurb[] = [
     AttdTrkrData,
     RoboSimulateData,
     Peddie2023Data,
-    Robo2023Data,
+    Robo2025Data,
     Robo2024Data,
+    Robo2023Data,
     NaturalSelectionData,
 ];
 
@@ -114,8 +116,8 @@ export default function ProjectsPage() {
                                     viewingIndex === i
                                         ? { width: '100vw', height: '100vh', borderRadius: '0' }
                                         : viewingIndex !== -1
-                                        ? { opacity: 0 }
-                                        : {}
+                                          ? { opacity: 0 }
+                                          : {}
                                 }
                                 {...colors}
                             />

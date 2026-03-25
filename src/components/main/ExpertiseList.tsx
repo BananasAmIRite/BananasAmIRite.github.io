@@ -38,6 +38,7 @@ export default function ExpertiseList() {
                         projects={[
                             { to: 'robo-2023', title: '2023 Robot' },
                             { to: 'robo-2024', title: '2024 Robot' },
+                            { to: 'robo-2025', title: '2025 Robot' },
                         ]}
                     >
                         <ExpertiseBody
