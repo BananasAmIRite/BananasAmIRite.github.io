@@ -22,6 +22,26 @@ export default function ExpertiseList() {
                 <ExpertiseContainer>
                     <Expertise
                         projects={[
+                            { to: 'robo-2023', title: '2023 Robot' },
+                            { to: 'robo-2024', title: '2024 Robot' },
+                            { to: 'robo-2025', title: '2025 Robot' },
+                        ]}
+                    >
+                        <ExpertiseBody
+                            title='Robotics'
+                            blurb={`Passionate about developing code for controlling physical components in Java through WPILib. Programmer at FRC team 321 for 3 years. `}
+                        />
+                    </Expertise>
+
+                    <Expertise projects={[{ to: 'peppers-ghost', title: "Pepper's Ghost Display" }]}>
+                        <ExpertiseBody
+                            title='Electronics'
+                            blurb={`Currently learning PCB design & embedded systems programming in C/C++. `}
+                        />
+                    </Expertise>
+
+                    <Expertise
+                        projects={[
                             {
                                 to: 'peddie-2023',
                                 title: 'PickupTrash',
@@ -34,22 +54,10 @@ export default function ExpertiseList() {
                             SQL and NoSQL databases.`}
                         />
                     </Expertise>
-                    <Expertise
-                        projects={[
-                            { to: 'robo-2023', title: '2023 Robot' },
-                            { to: 'robo-2024', title: '2024 Robot' },
-                            { to: 'robo-2025', title: '2025 Robot' },
-                        ]}
-                    >
-                        <ExpertiseBody
-                            title='Robotics'
-                            blurb={`Passionate about developing code for controlling physical components in Java through WPILib. Programmer at FRC team 321 for 3 years. `}
-                        />
-                    </Expertise>
                     <Expertise projects={[{ to: 'attd-trkr', title: 'Attendance Tracker' }]}>
                         <ExpertiseBody
                             title='Frontend Design'
-                            blurb={`Worked with react and react native to build fluid apps for the web and mobile devices. `}
+                            blurb={`Worked with React and React Native to build fluid apps for the web and mobile devices. `}
                         />
                     </Expertise>
                     <Expertise

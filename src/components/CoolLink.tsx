@@ -31,7 +31,7 @@ export default function CoolLink(props: {
                         height: props.decorHeight ?? '5px',
                         width: props.active ? '100%' : '0',
                         backgroundColor: props.accentColor ?? 'white',
-                        bottom: '2px',
+                        bottom: '-2px',
                     }}
                     variants={decorMotion}
                 ></m.div>

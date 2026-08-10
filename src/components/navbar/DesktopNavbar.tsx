@@ -40,7 +40,7 @@ export function NavbarItem(props: { path: string; title: string }) {
             <Link to={props.path} style={{ textDecoration: 'none' }}>
                 <CoolLink
                     style={{ fontSize: '18px', color: 'var(--bs-gray-100)' }}
-                    decorHeight='2px'
+                    decorHeight='3px'
                     active={pathname === props.path}
                 >
                     {props.title}

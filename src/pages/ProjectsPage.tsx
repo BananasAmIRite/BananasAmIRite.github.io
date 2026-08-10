@@ -11,6 +11,7 @@ import NaturalSelectionData from './projects/nss/NaturalSelectionProject';
 import Peddie2023Data from './projects/peddie-2023/Peddie2023Project';
 import DefaultBackgroundAnimation from '../components/animations/DefaultBackgroundAnimation';
 import Robo2025Data from './projects/robo-2025/Robo2025Project';
+import PeppersGhostData from './projects/peppers-ghost/PeppersGhostProject';
 
 export interface ProjectBlurb {
     id: string;
@@ -23,6 +24,7 @@ export interface ProjectBlurb {
 }
 
 const projectBlurbs: ProjectBlurb[] = [
+    PeppersGhostData,
     AttdTrkrData,
     RoboSimulateData,
     Peddie2023Data,

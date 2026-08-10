@@ -43,8 +43,8 @@ const CoolBackgroundAnimation = forwardRef<
                     (Math.random() - 0.5) * 0.0005,
                     (Math.random() - 0.5) * 0.0005,
                     2,
-                    Math.random() * 0.25
-                )
+                    Math.random() * 0.25,
+                ),
             );
         }
     };
@@ -63,7 +63,7 @@ const CoolBackgroundAnimation = forwardRef<
             circles.forEach((c) => c.update(ctx));
             requestAnimationFrame(() => render(cnt));
         },
-        [props.interUpdateFrame, rerenderCount]
+        [props.interUpdateFrame, rerenderCount],
     );
 
     useEffect(() => {
@@ -89,7 +89,7 @@ const CoolBackgroundAnimation = forwardRef<
         <canvas
             width='100%'
             height='100%'
-            style={{ width: '100%', height: '100%', imageRendering: 'pixelated' }}
+            style={{ width: '100%', height: '100%', imageRendering: 'auto' }}
             ref={ref}
         ></canvas>
     );
@@ -117,7 +117,7 @@ export class BackgroundCircle {
         public dx: number,
         public dy: number,
         public radius: number,
-        private scrollFactor: number
+        private scrollFactor: number,
     ) {
         this.lastNaturalX = x;
         this.lastNaturalY = y;
@@ -138,10 +138,10 @@ export class BackgroundCircle {
         this.currentScrollY = window.scrollY;
 
         this.x += Math.min(
-            Math.max(-50, Math.min(this.lastScrollX - this.currentScrollX, 50)) * 0.001 * this.scrollFactor
+            Math.max(-50, Math.min(this.lastScrollX - this.currentScrollX, 50)) * 0.001 * this.scrollFactor,
         );
         this.y += Math.min(
-            Math.max(-50, Math.min(this.lastScrollY - this.currentScrollY, 50)) * 0.001 * this.scrollFactor
+            Math.max(-50, Math.min(this.lastScrollY - this.currentScrollY, 50)) * 0.001 * this.scrollFactor,
         );
 
         if (this.targetNav !== null) {

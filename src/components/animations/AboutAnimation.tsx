@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useLayoutEffect, useRef } from 'react';
+import { useCallback, useContext, useEffect, useRef } from 'react';
 import { BackgroundCircle, InterUpdateFunction } from './CoolBackgroundAnimation';
 import { BGAnimationContext } from '../../App';
 import AboutPointTooltip from '../about/AboutPointLink';
@@ -13,61 +13,94 @@ export interface AboutPoint {
 export default function AboutBackgroundAnimation(props: { aboutPoints: AboutPoint[] }) {
     const { setAnimateFunc, bgAnimRef } = useContext(BGAnimationContext);
 
-    // TODO: refactor to be more react-compliant lol
-    let circles: AboutBGCircle[] = [];
+    const circlesRef = useRef<AboutBGCircle[]>([]);
+    const mouseRef = useRef({ x: 0, y: 0 });
 
-    let mouseX = 0;
-    let mouseY = 0;
+    const mouseLine = useCallback(
+        (ctx: CanvasRenderingContext2D) => {
+            const width = ctx.canvas.width;
+            const height = ctx.canvas.height;
+            const { x: mouseX, y: mouseY } = mouseRef.current;
 
-    const mouseLine = (ctx: CanvasRenderingContext2D) => {
-        const width = ctx.canvas.width;
-        const height = ctx.canvas.height;
+            ctx.strokeStyle = 'grey';
+            ctx.lineWidth = 1;
 
-        ctx.strokeStyle = 'grey';
-        ctx.lineWidth = 1;
+            const distance = (x: number, y: number, point: AboutPoint) =>
+                Math.hypot(Math.abs(point.x * width - x), Math.abs(point.y * height - y));
 
-        const distance = (x: number, y: number, point: AboutPoint) =>
-            Math.hypot(Math.abs(point.x * width - x), Math.abs(point.y * height - y));
+            const sortedPoints = [...props.aboutPoints].sort(
+                (a, b) => distance(mouseX, mouseY, a) - distance(mouseX, mouseY, b),
+            );
 
-        const sortedPoints = props.aboutPoints.sort(
-            (a, b) => distance(mouseX, mouseY, a) - distance(mouseX, mouseY, b)
-        );
+            const closestAbtPt = sortedPoints[0];
+            const dist = distance(mouseX, mouseY, closestAbtPt);
+            if (dist > width / 10) return;
+            ctx.beginPath();
+            ctx.moveTo(mouseX, mouseY);
+            ctx.lineTo(
+                closestAbtPt.x * width - (mouseY - ctx.canvas.height / 2) * 0.01,
+                closestAbtPt.y * height - (mouseY - ctx.canvas.height / 2) * 0.01,
+            );
+            ctx.stroke();
+        },
+        [props.aboutPoints],
+    );
 
-        const closestAbtPt = sortedPoints[0];
-        const dist = distance(mouseX, mouseY, closestAbtPt);
-        if (dist > width / 10) return;
-        ctx.beginPath();
-        ctx.moveTo(mouseX, mouseY);
-        ctx.lineTo(closestAbtPt.x * width, closestAbtPt.y * height);
-        ctx.stroke();
-    };
-
-    const render = useCallback<InterUpdateFunction>((actualCircles, ctx) => {
-        circles.forEach((circ) => circ.update(ctx, mouseX, mouseY));
-        mouseLine(ctx);
-    }, []);
+    const render = useCallback<InterUpdateFunction>(
+        (actualCircles, ctx) => {
+            const { x: mouseX, y: mouseY } = mouseRef.current;
+            circlesRef.current.forEach((circ) => circ.update(ctx, mouseX, mouseY));
+            mouseLine(ctx);
+        },
+        [mouseLine],
+    );
 
     useEffect(() => {
-        circles = (bgAnimRef?.current?.circleList ?? []).map((e) => new AboutBGCircle(e, props.aboutPoints));
-        window.addEventListener('mousemove', (e) => {
-            mouseX = e.offsetX;
-            mouseY = e.offsetY;
-        });
+        circlesRef.current = (bgAnimRef?.current?.circleList ?? []).map((e) => new AboutBGCircle(e, props.aboutPoints));
+
+        const handleMouseMove = (e: MouseEvent) => {
+            mouseRef.current.x = e.offsetX;
+            mouseRef.current.y = e.offsetY;
+        };
+
+        window.addEventListener('mousemove', handleMouseMove);
         setAnimateFunc(render);
-    }, []);
+
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove);
+        };
+    }, [bgAnimRef, props.aboutPoints, render, setAnimateFunc]);
 
     return (
         <>
             <div>
-                {props.aboutPoints.map((e) => (
+                {props.aboutPoints.map((e, i) => (
                     <div
+                        key={`${e.pointName}-${i}`}
                         style={{
                             position: 'absolute',
-                            left: `${(e.x + 0.01) * 100}vw`,
-                            top: `${(e.y + 0.01) * 100}vh`,
+                            left: `${(e.x - 0.01) * 100}vw`, // trick to move the tooltip div closer to the point and then superficially offset the text to increase click
+                            top: `${(e.y - 0.01) * 100}vh`,
                         }}
                     >
-                        <AboutPointTooltip text={e.pointName} to={e.pointTo} />
+                        <AboutPointTooltip
+                            text={e.pointName}
+                            to={e.pointTo}
+                            onHoverStart={() => {
+                                for (const circle of circlesRef.current) {
+                                    if (circle && circle.closestPoint === e) {
+                                        circle.hovering = true;
+                                    }
+                                }
+                            }}
+                            onHoverEnd={() => {
+                                for (const circle of circlesRef.current) {
+                                    if (circle && circle.closestPoint === e) {
+                                        circle.hovering = false;
+                                    }
+                                }
+                            }}
+                        />
                     </div>
                 ))}
             </div>
@@ -78,7 +111,7 @@ export default function AboutBackgroundAnimation(props: { aboutPoints: AboutPoin
 class AboutBGCircle {
     private static trailingPointsLength = 1;
     private trailingPoints: { x: number; y: number }[];
-    private closestPoint!: AboutPoint;
+    public closestPoint!: AboutPoint;
     private closestPointAngle!: number;
     private closestPointPercent!: number;
     private closestPointX!: number;
@@ -86,7 +119,13 @@ class AboutBGCircle {
 
     public originalX: number;
     public originalY: number;
-    constructor(public bgCircle: BackgroundCircle, private aboutPoints: AboutPoint[]) {
+
+    public hovering: boolean = false;
+    constructor(
+        public bgCircle: BackgroundCircle,
+        private aboutPoints: AboutPoint[],
+        private onClick: () => void = () => {},
+    ) {
         this.originalX = bgCircle.x;
         this.originalY = bgCircle.y;
         this.trailingPoints = [];
@@ -107,7 +146,7 @@ class AboutBGCircle {
         this.closestPointX = this.closestPoint.x * width;
         this.closestPointY = this.closestPoint.y * height;
 
-        if (Math.hypot(mouseX - this.closestPointX, mouseY - this.closestPointY) < 20) {
+        if (Math.hypot(mouseX - this.closestPointX, mouseY - this.closestPointY) < 20 || this.hovering) {
             // this.closestPointAngle = Math.random() * 2 * Math.PI;
             const pt = this.calcCirclePoint(20, ctx, mouseX, mouseY);
             this.bgCircle.setTargetNav(pt.x / width, pt.y / height);
@@ -118,11 +157,6 @@ class AboutBGCircle {
     }
 
     private computeClosestPoint() {
-        const distance = (circle: BackgroundCircle, point: AboutPoint) =>
-            Math.hypot(Math.abs(point.x - circle.x), Math.abs(point.y - circle.y));
-
-        // const sortedPoints = this.aboutPoints.sort((a, b) => distance(this.bgCircle, a) - distance(this.bgCircle, b));
-        // const closest = sortedPoints[0];
         this.closestPoint = this.aboutPoints[Math.floor(Math.random() * this.aboutPoints.length)];
         this.closestPointAngle = Math.random() * 2 * Math.PI;
         this.closestPointPercent = Math.random();
@@ -132,7 +166,7 @@ class AboutBGCircle {
         distance: number,
         ctx: CanvasRenderingContext2D,
         mouseX: number,
-        mouseY: number
+        mouseY: number,
     ): { x: number; y: number } {
         return {
             x:

@@ -56,10 +56,11 @@ function MainPage() {
                         zIndex: '100',
                         justifyContent: 'center',
                         alignItems: 'center',
+                        padding: '5vw',
                     }}
                 >
                     <h1 style={{ fontSize: 64, alignSelf: 'flex-start' }}>{txt}</h1>
-                    <h2>I dabble in web design, backend design, games, and robotics. </h2>
+                    <h2>I dabble in web design, backend design, electronics, and robotics. </h2>
 
                     <NavLink style={{ textDecoration: 'underline', fontSize: '36px' }} to='/projects'>
                         See My Projects

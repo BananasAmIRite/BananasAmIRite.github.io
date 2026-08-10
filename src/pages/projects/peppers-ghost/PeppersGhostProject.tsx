@@ -2,10 +2,10 @@ import GenericProjectPage, { makeGenericProject } from '../../../components/proj
 import ProjectDetails, { ProjectDetailsContainer } from '../../../components/project/ProjectDetails';
 import { ProjectBlurb } from '../../ProjectsPage';
 
-export function AttdTrkrProject(props: { onExit: () => void; key: string }) {
+export function PeppersGhostProject(props: { onExit: () => void; key: string }) {
     return (
         <GenericProjectPage
-            title={'Attendance Tracker'}
+            title={"Pepper's Ghost Holographic Display"}
             {...props}
             titleChildren={
                 <ProjectDetailsContainer
@@ -60,27 +60,23 @@ export function AttdTrkrProject(props: { onExit: () => void; key: string }) {
     );
 }
 
-const AttdTrkrData: ProjectBlurb = {
+const PeppersGhostData: ProjectBlurb = {
     id: 'attd-trkr',
-    projPage: makeGenericProject(AttdTrkrProject),
-    title: 'Attendance Tracker',
-    image: '/projects/attd-trkr/banner.png',
+    projPage: makeGenericProject(PeppersGhostProject),
+    title: "Pepper's Ghost Display",
+    image: '/projects/peppers-ghost/banner.jpg',
     blurb: (
         <>
             <p>
-                This project relieves people of the hassle of taking attendance on my robotics team. It is an Android
-                app that reads student ID cards through NFC IDs or barcodes and stores each instance of the scan in a
-                google sheet. This was used for two years with little downtime before being finally retired for a
-                fingerprint system.
+                This is a holographic display inspired by <a href='https://github.com/xanderchinxyz/OpenGhost'>this</a>{' '}
+                GitHub project. I developed it to learn more about electronics as well as to spice up my desk setup! It
+                currently has numerous features, including but not limited to weather, spotify connection, headphone
+                status, a chicken from Stardew Valley, and a calendar view. This is intended to be an ongoing project,
+                with me adding whatever features I'd like to see on my desk!
             </p>
-
-            <div style={{ width: '80%', display: 'flex', justifyContent: 'space-between' }}>
-                {' '}
-                <a href='https://github.com/BananasAmIRite/robo-attendance-tracker'>View the Project (v1)</a>
-                <a href='https://github.com/BananasAmIRite/attendance-tracker-rpi'>View the Project (v2)</a>
-            </div>
+            <a href='https://github.com/BananasAmIRite/peppers-ghost-display'>View the Project</a>
         </>
     ),
 };
 
-export default AttdTrkrData;
+export default PeppersGhostData;

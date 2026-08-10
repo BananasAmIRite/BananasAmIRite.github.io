@@ -9,12 +9,15 @@ export default function AboutPointTooltip(props: {
     decorHeight?: string;
     text: string;
     to: string;
+    onHoverStart: () => void;
+    onHoverEnd: () => void;
 }) {
     const [startTypedText, txt] = useTypedText({
         text: props.text,
     });
 
     useEffect(() => {
+        // setInterval(() => startTypedText(), 5000);
         startTypedText();
     }, []);
     return (
@@ -23,11 +26,14 @@ export default function AboutPointTooltip(props: {
                 whileHover={{
                     opacity: 1,
                 }}
-                style={{ cursor: 'pointer', opacity: 0.5 }}
+                // trick where I superficially make the div larger to allow larger click area
+                style={{ cursor: 'pointer', opacity: 0.5, paddingLeft: '2vw', paddingTop: '2vh' }}
                 exit={{
                     opacity: 0,
                     x: '5vw',
                 }}
+                onHoverStart={props.onHoverStart}
+                onHoverEnd={props.onHoverEnd}
             >
                 <h4 style={{ width: 'fit-content', position: 'relative', margin: '0 inherit', ...props.style }}>
                     {txt}

@@ -126,11 +126,12 @@ export default function AboutMe() {
                         }}
                         variants={leftBio}
                     >
-                        <motion.h1>Hey, </motion.h1>
+                        <motion.h1>Hi! </motion.h1>
                         <motion.h5>
                             I'm Jason (a.k.a. BananasAmIRite on the interwebs)! I'm a developer who likes to make
-                            simulations, backend applications, and occasionally, websites like this one. In my free
-                            time, I enjoy playing badminton and looking at new tech.{' '}
+                            simulations, backend applications, and occasionally, websites like this one. Recently, I've
+                            also taken a liking to making electronics and writing lower-level firmware. In my free time,
+                            I enjoy playing badminton and looking at new tech.{' '}
                         </motion.h5>
                         <br />
                         <br />

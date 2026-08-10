@@ -119,13 +119,13 @@ export interface ScrolLCardContainerProps {
 
 const getScrollLengths = (
     container: RefObject<HTMLDivElement>,
-    cardRefs: { current: (HTMLDivElement | null)[] }
+    cardRefs: { current: (HTMLDivElement | null)[] },
 ): number[] => {
     const elementScrolls = cardRefs.current.map((e) => e?.scrollWidth ?? 0);
 
     const scrollLengths: number[] = [];
 
-    for (let i = 0; i < cardRefs.current.length ?? 0; i++) {
+    for (let i = 0; i < cardRefs.current.length; i++) {
         scrollLengths.push((scrollLengths[i - 1] ?? 0) + ((elementScrolls[i - 1] ?? 0) + (elementScrolls[i] ?? 0)) / 2);
     }
     return scrollLengths;
@@ -153,7 +153,9 @@ export const ScrollCardContainer = forwardRef((props: ScrolLCardContainerProps, 
         setScrollLengths(scrollLengths);
 
         // SKILL ISSUE: page jumping caused by this issue: https://issues.chromium.org/issues/327554079
-        if (lowestNum <= 5 || !(isChromium || isChrome)) setActive(lowestIndex);
+        // UPDATE: seems like it's fixed!
+        // if (lowestNum <= 5 || !(isChromium || isChrome))
+        setActive(lowestIndex);
     };
 
     useEffect(() => {
