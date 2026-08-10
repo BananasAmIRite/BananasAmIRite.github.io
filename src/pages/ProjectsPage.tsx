@@ -50,7 +50,7 @@ export default function ProjectsPage() {
         //         e.projPage(() => {
         //             setViewingProj(null);
         //             setViewingIndex(-1);
-        //         }, `PROJ-${e.id}`)
+        //         }, `PROJ-${e.id}`),
         //     );
         // }, 500);
     };

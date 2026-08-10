@@ -88,7 +88,7 @@ export function ScrollCard(props: ScrollCardProps) {
                     // width: '100%',
                     position: 'absolute',
                     top: '33%',
-                    height: '55%',
+                    height: 'auto', // '55%',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
