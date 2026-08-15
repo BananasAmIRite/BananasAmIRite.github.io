@@ -58,6 +58,10 @@ export default function AboutBackgroundAnimation(props: { aboutPoints: AboutPoin
     useEffect(() => {
         circlesRef.current = (bgAnimRef?.current?.circleList ?? []).map((e) => new AboutBGCircle(e, props.aboutPoints));
 
+        (bgAnimRef?.current?.circleList ?? []).forEach(
+            (e) => (e.convergeRate = BackgroundCircle.DEFAULT_CONVERGE_RATE),
+        );
+
         const handleMouseMove = (e: MouseEvent) => {
             mouseRef.current.x = e.offsetX;
             mouseRef.current.y = e.offsetY;
@@ -109,7 +113,7 @@ export default function AboutBackgroundAnimation(props: { aboutPoints: AboutPoin
 }
 
 class AboutBGCircle {
-    private static trailingPointsLength = 1;
+    private static trailingPointsLength = 5;
     private trailingPoints: { x: number; y: number }[];
     public closestPoint!: AboutPoint;
     private closestPointAngle!: number;
@@ -168,6 +172,9 @@ class AboutBGCircle {
         mouseX: number,
         mouseY: number,
     ): { x: number; y: number } {
+        // update target randomly for jumble effect
+        // this.closestPointAngle = Math.random() * 2 * Math.PI;
+        // this.closestPointPercent = Math.random() * 3;
         return {
             x:
                 this.closestPointX +

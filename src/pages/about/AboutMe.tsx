@@ -217,22 +217,22 @@ export default function AboutMe() {
                                     <motion.path
                                         variants={imgArrow}
                                         stroke='#ffffff'
-                                        stroke-width='5'
+                                        strokeWidth='5'
                                         fill='none'
                                         opacity='1'
-                                        stroke-linecap='round'
-                                        stroke-linejoin='round'
+                                        strokeLinecap='round'
+                                        strokeLinejoin='round'
                                         custom={0}
                                         d='M0,270 C 88,287 163,241 177,227 C 193,213 221,187 201,136 C 181,104 134,119 130,147 C 126,171 142,189 159,194 C 198,203 225,177 241,144 C 259,103 277,63 284,18'
                                     ></motion.path>
                                     <motion.path
                                         variants={imgArrow}
                                         stroke='#ffffff'
-                                        stroke-width='5'
+                                        strokeWidth='5'
                                         fill='none'
                                         opacity='1'
-                                        stroke-linecap='round'
-                                        stroke-linejoin='round'
+                                        strokeLinecap='round'
+                                        strokeLinejoin='round'
                                         d='M 284,18 L 250,40 M 284,18 L 300,55'
                                         custom={1}
                                     ></motion.path>

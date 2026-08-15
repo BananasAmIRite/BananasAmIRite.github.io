@@ -105,7 +105,11 @@ export class BackgroundCircle {
     private lastNaturalX: number = 0;
     private lastNaturalY: number = 0;
 
-    private targetNav: {
+    public static DEFAULT_CONVERGE_RATE: number = 0.05;
+
+    public convergeRate: number = BackgroundCircle.DEFAULT_CONVERGE_RATE;
+
+    public targetNav: {
         x: number;
         y: number;
         stay: boolean;
@@ -145,8 +149,8 @@ export class BackgroundCircle {
         );
 
         if (this.targetNav !== null) {
-            this.x += (this.targetNav.x - this.x) * 0.05;
-            this.y += (this.targetNav.y - this.y) * 0.05;
+            this.x += (this.targetNav.x - this.x) * this.convergeRate;
+            this.y += (this.targetNav.y - this.y) * this.convergeRate;
             if (
                 !this.targetNav.stay &&
                 Math.abs(this.x - this.targetNav.x) < 0.001 &&

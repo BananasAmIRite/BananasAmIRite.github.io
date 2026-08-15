@@ -57,7 +57,7 @@ export default function LegacyPongAnimation(props: { type: 'ai' | 'player' }) {
                     x: leftPaddle.x * ctx.canvas.width,
                     y: leftPaddle.y * ctx.canvas.height,
                 },
-                PADDLE_HEIGHT
+                PADDLE_HEIGHT,
             )
         ) {
             ballVector.x = Math.abs(ballVector.x);
@@ -72,7 +72,7 @@ export default function LegacyPongAnimation(props: { type: 'ai' | 'player' }) {
                     x: rightPaddle.x * ctx.canvas.width,
                     y: rightPaddle.y * ctx.canvas.height,
                 },
-                PADDLE_HEIGHT
+                PADDLE_HEIGHT,
             )
         ) {
             ballVector.x = -Math.abs(ballVector.x);
@@ -86,7 +86,7 @@ export default function LegacyPongAnimation(props: { type: 'ai' | 'player' }) {
         ctx: CanvasRenderingContext2D,
         paddle: { x: number; y: number },
         pos: number,
-        side: 'left' | 'right'
+        side: 'left' | 'right',
     ) => {
         paddle.x = pos;
         // maybe complicate this algo a lil bit
@@ -102,7 +102,7 @@ export default function LegacyPongAnimation(props: { type: 'ai' | 'player' }) {
     const updatePlayerPaddlePosition = (
         ctx: CanvasRenderingContext2D,
         paddle: { x: number; y: number },
-        pos: number
+        pos: number,
     ) => {
         paddle.x = pos;
         paddle.y = mouseY / ctx.canvas.height;
@@ -128,7 +128,7 @@ export default function LegacyPongAnimation(props: { type: 'ai' | 'player' }) {
                     ballPosition.x,
                     ballPosition.y,
                     BALL_RADIUS / window.innerWidth,
-                    BALL_RADIUS / window.innerHeight
+                    BALL_RADIUS / window.innerHeight,
                 );
             } else if (e instanceof PaddleCircle) {
                 if (e.side === 'ai') {
@@ -145,8 +145,8 @@ export default function LegacyPongAnimation(props: { type: 'ai' | 'player' }) {
             i % 3 === 0
                 ? new BallCircle(e)
                 : i % 3 === 1
-                ? new PaddleCircle(e, (i / (bgAnimRef?.current?.circleList.length ?? 1)) * 0.8 + 0.1, 'ai')
-                : new PaddleCircle(e, (i / (bgAnimRef?.current?.circleList.length ?? 1)) * 0.8 + 0.1, 'player')
+                  ? new PaddleCircle(e, (i / (bgAnimRef?.current?.circleList.length ?? 1)) * 0.8 + 0.1, 'ai')
+                  : new PaddleCircle(e, (i / (bgAnimRef?.current?.circleList.length ?? 1)) * 0.8 + 0.1, 'player'),
         );
         window.addEventListener('mousemove', (e) => {
             mouseX = e.offsetX;
@@ -164,7 +164,7 @@ const ballCollidingWithPaddle = (
     ballPos: { x: number; y: number },
     ballRadius: number,
     paddlePos: { x: number; y: number },
-    paddleHeight: number
+    paddleHeight: number,
 ): boolean => {
     const X1 = paddlePos.x;
     const Y1 = paddlePos.y - paddleHeight / 2;
@@ -218,7 +218,11 @@ class BallCircle extends PingPongCircle {
 }
 
 class PaddleCircle extends PingPongCircle {
-    public constructor(circle: BackgroundCircle, private paddlePercent: number, public side: 'ai' | 'player') {
+    public constructor(
+        circle: BackgroundCircle,
+        private paddlePercent: number,
+        public side: 'ai' | 'player',
+    ) {
         super(circle);
     }
 

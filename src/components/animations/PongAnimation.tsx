@@ -25,7 +25,7 @@ export default function PongAnimation(props: { type: 'ai' | 'player' }) {
         setBallPosition({ x: 0.5, y: 0.5 });
         setLeftPaddle({ x: 0.1, y: 0.5 });
         const randAngle = Math.random() * 2 * Math.PI;
-        const randSpeed = 0.0025;
+        const randSpeed = 0.0025 + Math.random() * 0.0025;
         setBallVector({ x: Math.cos(randAngle) * randSpeed, y: Math.sin(randAngle) * randSpeed });
     };
 
@@ -56,7 +56,7 @@ export default function PongAnimation(props: { type: 'ai' | 'player' }) {
                         x: leftPaddle.x * ctx.canvas.width,
                         y: leftPaddle.y * ctx.canvas.height,
                     },
-                    PADDLE_HEIGHT
+                    PADDLE_HEIGHT,
                 )
             ) {
                 dx = Math.abs(dx);
@@ -71,7 +71,7 @@ export default function PongAnimation(props: { type: 'ai' | 'player' }) {
                         x: rightPaddle.x * ctx.canvas.width,
                         y: rightPaddle.y * ctx.canvas.height,
                     },
-                    PADDLE_HEIGHT
+                    PADDLE_HEIGHT,
                 )
             ) {
                 dx = -Math.abs(dx);
@@ -82,7 +82,7 @@ export default function PongAnimation(props: { type: 'ai' | 'player' }) {
             setBallPosition({ x, y });
             setBallVector({ x: dx, y: dy });
         },
-        [ballPosition, ballVector, leftPaddle, rightPaddle]
+        [ballPosition, ballVector, leftPaddle, rightPaddle],
     );
 
     const updateAIPaddlePosition = useCallback(
@@ -91,7 +91,7 @@ export default function PongAnimation(props: { type: 'ai' | 'player' }) {
             paddle: { x: number; y: number },
             action: React.Dispatch<React.SetStateAction<{ x: number; y: number }>>,
             pos: number,
-            side: 'left' | 'right'
+            side: 'left' | 'right',
         ) => {
             let x = paddle.x;
             let y = paddle.y;
@@ -107,14 +107,14 @@ export default function PongAnimation(props: { type: 'ai' | 'player' }) {
             if (y - PADDLE_HEIGHT / 2 / ctx.canvas.height < 0) y = PADDLE_HEIGHT / 2 / window.innerHeight;
             action({ x, y });
         },
-        [ballPosition, ballVector]
+        [ballPosition, ballVector],
     );
     const updatePlayerPaddlePosition = useCallback(
         (
             ctx: CanvasRenderingContext2D,
             paddle: { x: number; y: number },
             action: React.Dispatch<React.SetStateAction<{ x: number; y: number }>>,
-            pos: number
+            pos: number,
         ) => {
             let x = pos;
             let y = mouseY / ctx.canvas.height;
@@ -124,7 +124,7 @@ export default function PongAnimation(props: { type: 'ai' | 'player' }) {
                 rightPaddle.y = PADDLE_HEIGHT / 2 / ctx.canvas.height;
             action({ x, y });
         },
-        [rightPaddle, mouseY]
+        [rightPaddle, mouseY],
     );
 
     const render = useCallback<InterUpdateFunction>(
@@ -144,7 +144,7 @@ export default function PongAnimation(props: { type: 'ai' | 'player' }) {
                         ballPosition.x,
                         ballPosition.y,
                         BALL_RADIUS / window.innerWidth,
-                        BALL_RADIUS / window.innerHeight
+                        BALL_RADIUS / window.innerHeight,
                     );
                 } else if (e instanceof PaddleCircle) {
                     if (e.side === 'ai') {
@@ -153,9 +153,29 @@ export default function PongAnimation(props: { type: 'ai' | 'player' }) {
                         e.update(ctx, rightPaddle.x, rightPaddle.y, PADDLE_HEIGHT / window.innerHeight);
                     }
                 }
+
+                if (e.bgCircle.targetNav) {
+                    console.log(
+                        Math.hypot(e.bgCircle.targetNav!.x - e.bgCircle.x, e.bgCircle.targetNav!.y - e.bgCircle.y),
+                    );
+                    // smooth convergence until the balls get close enough to follow the targetNav
+                    // so before transition to pong, balls transition slowly, after they get close enough, they snap onto the target
+                    e.bgCircle.convergeRate =
+                        BackgroundCircle.DEFAULT_CONVERGE_RATE +
+                        0.5 *
+                            Math.pow(
+                                1e7, // increase to make timings more tight (balls will ease in more)
+                                -Math.hypot(
+                                    e.bgCircle.targetNav!.x - e.bgCircle.x,
+                                    e.bgCircle.targetNav!.y - e.bgCircle.y,
+                                ),
+                            );
+                } else {
+                    e.bgCircle.convergeRate = BackgroundCircle.DEFAULT_CONVERGE_RATE;
+                }
             }
         },
-        [circles, mouseX, mouseY, leftPaddle, rightPaddle, ballPosition, ballVector]
+        [circles, mouseX, mouseY, leftPaddle, rightPaddle, ballPosition, ballVector],
     );
 
     useEffect(() => {
@@ -164,9 +184,12 @@ export default function PongAnimation(props: { type: 'ai' | 'player' }) {
                 i % 3 === 0
                     ? new BallCircle(e)
                     : i % 3 === 1
-                    ? new PaddleCircle(e, (i / (bgAnimRef?.current?.circleList.length ?? 1)) * 0.8 + 0.1, 'ai')
-                    : new PaddleCircle(e, (i / (bgAnimRef?.current?.circleList.length ?? 1)) * 0.8 + 0.1, 'player')
-            )
+                      ? new PaddleCircle(e, (i / (bgAnimRef?.current?.circleList.length ?? 1)) * 0.8 + 0.1, 'ai')
+                      : new PaddleCircle(e, (i / (bgAnimRef?.current?.circleList.length ?? 1)) * 0.8 + 0.1, 'player'),
+            ),
+        );
+        (bgAnimRef?.current?.circleList ?? []).forEach(
+            (e) => (e.convergeRate = BackgroundCircle.DEFAULT_CONVERGE_RATE),
         );
         window.addEventListener('mousemove', (e) => {
             setMouseX(e.offsetX);
@@ -187,7 +210,7 @@ const ballCollidingWithPaddle = (
     ballPos: { x: number; y: number },
     ballRadius: number,
     paddlePos: { x: number; y: number },
-    paddleHeight: number
+    paddleHeight: number,
 ): boolean => {
     const X1 = paddlePos.x;
     const Y1 = paddlePos.y - paddleHeight / 2;
@@ -241,7 +264,11 @@ class BallCircle extends PingPongCircle {
 }
 
 class PaddleCircle extends PingPongCircle {
-    public constructor(circle: BackgroundCircle, private paddlePercent: number, public side: 'ai' | 'player') {
+    public constructor(
+        circle: BackgroundCircle,
+        private paddlePercent: number,
+        public side: 'ai' | 'player',
+    ) {
         super(circle);
     }
 
