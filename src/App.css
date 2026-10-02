@@ -74,6 +74,21 @@ p {
     font-size: 24px;
 }
 
+.main-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+    padding: 8rem 2rem 4rem;
+    box-sizing: border-box;
+    text-align: center;
+    background: linear-gradient(180deg, transparent 0%, rgba(24, 24, 27, 0.72) 38%, #18181b 72%, #09090b 100%);
+}
+
+.main-footer-content {
+    max-width: 720px;
+}
+
 @media (max-width: 1000px) {
     p {
         font-size: 16px;

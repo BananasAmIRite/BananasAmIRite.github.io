@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import useTypedText from '../hooks/useTypedText';
 import { motion } from 'framer-motion';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import ScrollIndicator from '../components/ScrollIndicator';
 import ExpertiseList from '../components/main/ExpertiseList';
 import DefaultBackgroundAnimation from '../components/animations/DefaultBackgroundAnimation';
@@ -111,6 +111,15 @@ function MainPage() {
 
             <div style={{ width: '100%', height: '100vh', backgroundColor: 'transparent' }} id='about'>
                 <ExpertiseList />
+            </div>
+
+            <div className='main-footer' id='footer'>
+                <div className='main-footer-content'>
+                    <h2>Scrolled to the end?</h2>
+                    <p>
+                        Enjoy <Link to='/pong'>this game</Link> of pong!
+                    </p>
+                </div>
             </div>
         </motion.div>
     );

@@ -1,11 +1,14 @@
-import DefaultBackgroundAnimation from '../../components/animations/DefaultBackgroundAnimation';
-import WorkInProgress from '../../components/WorkInProgress';
+import { useEffect } from 'react';
 
 export function AboutResume() {
+    useEffect(() => {
+        window.location.replace('/about/resume/Resume.pdf');
+    }, []);
+
     return (
         <>
-            <DefaultBackgroundAnimation />
-            <WorkInProgress />
+            {/* <DefaultBackgroundAnimation />
+            <WorkInProgress /> */}
         </>
     );
 }

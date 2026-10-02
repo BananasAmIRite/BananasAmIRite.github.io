@@ -1,5 +1,5 @@
 import DefaultBackgroundAnimation from '../../components/animations/DefaultBackgroundAnimation';
-import { FaGithub } from 'react-icons/fa';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { FaInstagram } from 'react-icons/fa';
 import { MdOutlineEmail } from 'react-icons/md';
 import { motion } from 'framer-motion';
@@ -128,10 +128,10 @@ export default function AboutMe() {
                     >
                         <motion.h1>Hi! </motion.h1>
                         <motion.h5>
-                            I'm Jason (a.k.a. BananasAmIRite on the interwebs)! I'm a developer who likes to make
-                            simulations, backend applications, and occasionally, websites like this one. Recently, I've
-                            also taken a liking to making electronics and writing lower-level firmware. In my free time,
-                            I enjoy playing badminton and looking at new tech.{' '}
+                            I'm Jason! I'm a developer who likes to make simulations, backend applications, and
+                            occasionally, websites like this one. Recently, I've also taken a liking to making
+                            electronics and writing lower-level firmware. In my free time, I enjoy playing badminton and
+                            looking at new tech.{' '}
                         </motion.h5>
                         <br />
                         <br />
@@ -149,6 +149,14 @@ export default function AboutMe() {
                                 whileHover={'hovered'}
                             >
                                 <FaGithub size={35} />
+                            </motion.a>
+                            <motion.a
+                                href={'https://www.linkedin.com/in/jason-yang-b73757273'}
+                                variants={mediaIcons}
+                                initial={'normal'}
+                                whileHover={'hovered'}
+                            >
+                                <FaLinkedin size={35} />
                             </motion.a>
                             <motion.a
                                 href={'https://www.instagram.com/bananasamirite/'}
