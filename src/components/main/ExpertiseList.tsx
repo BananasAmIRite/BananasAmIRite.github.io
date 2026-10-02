@@ -29,7 +29,7 @@ export default function ExpertiseList() {
                     >
                         <ExpertiseBody
                             title='Robotics'
-                            blurb={`Passionate about developing code for controlling physical components in Java through WPILib. Programmer at FRC team 321 for 3 years. `}
+                            blurb={`Passionate about developing code for controlling physical components in Java through WPILib. Alum of FRC team 321. `}
                         />
                     </Expertise>
 

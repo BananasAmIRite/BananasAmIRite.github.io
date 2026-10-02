@@ -109,7 +109,7 @@ function MainPage() {
                 </div>
             </div>
 
-            <div style={{ width: '100%', height: '100vh', backgroundColor: 'transparent' }} id='about'>
+            <div style={{ width: '100%', minHeight: '100vh', backgroundColor: 'transparent' }} id='about'>
                 <ExpertiseList />
             </div>
 
