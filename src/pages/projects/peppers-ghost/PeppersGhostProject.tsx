@@ -62,7 +62,7 @@ export function PeppersGhostProject(props: { onExit: () => void; key: string }) 
 }
 
 const PeppersGhostData: ProjectBlurb = {
-    id: 'attd-trkr',
+    id: 'peppers-ghost',
     projPage: makeGenericProject(PeppersGhostProject),
     title: "Pepper's Ghost Display",
     image: '/projects/peppers-ghost/banner.jpg',
