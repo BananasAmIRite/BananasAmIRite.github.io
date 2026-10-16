@@ -1,4 +1,4 @@
-import GenericProjectPage, { makeGenericProject } from '../../../components/project/GenericProjectPage';
+import GenericProjectPage, { makeGenericProject, ProjectTextBlock } from '../../../components/project/GenericProjectPage';
 import ProjectDetails, { ProjectDetailsContainer } from '../../../components/project/ProjectDetails';
 import { ProjectBlurb } from '../../ProjectsPage';
 
@@ -28,9 +28,9 @@ export function SphinxProject(props: { onExit: () => void; key: string }) {
                             justifyContent: 'center',
                             display: 'flex',
                         }}
-                    >
-                        Helllo
-                    </ProjectDetails>
+                        title='Role'
+                        blurb='Controls and primary flight software'
+                    />
                     <ProjectDetails
                         accentColor='var(--bs-gray-600)'
                         style={{
@@ -42,20 +42,28 @@ export function SphinxProject(props: { onExit: () => void; key: string }) {
                             justifyContent: 'center',
                             display: 'flex',
                         }}
-                    >
-                        Helllo
-                    </ProjectDetails>
+                        title='System'
+                        blurb='Autonomous VTOL lander'
+                    />
                 </ProjectDetailsContainer>
             }
+            sections={
+                <>
+                    <ProjectTextBlock title='Control Algorithms'>
+                        <p>
+                            Sphinx uses flight-control algorithms to keep the vehicle stable and controllable while
+                            hovering and navigating.
+                        </p>
+                    </ProjectTextBlock>
+                    <ProjectTextBlock title='State Estimation and Filters'>
+                        <p>
+                            This section is ready for the sensor-fusion and filtering details, including the signals,
+                            assumptions, and tuning that make the onboard state estimate reliable.
+                        </p>
+                    </ProjectTextBlock>
+                </>
+            }
         >
-            <div
-                style={{
-                    width: '100%',
-                    height: '100vh',
-                    backgroundColor: 'transparent',
-                    // , backgroundColor: 'var(--bs-gray-700)'
-                }}
-            ></div>
         </GenericProjectPage>
     );
 }
@@ -74,7 +82,7 @@ const SphinxData: ProjectBlurb = {
         </>
     ),
     projPage: makeGenericProject(SphinxProject),
-    allowReadMore: true
+    allowReadMore: false
 };
 
 export default SphinxData;

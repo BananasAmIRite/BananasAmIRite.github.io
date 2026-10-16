@@ -2,9 +2,51 @@ import { ReactNode } from 'react';
 import { motion as m } from 'framer-motion';
 import CoolLink from '../CoolLink';
 
+export function ProjectTextBlock(props: { title: ReactNode; children?: ReactNode }) {
+    return (
+        <m.section
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ type: 'spring', stiffness: 120, damping: 22 }}
+            style={{
+                width: '100%',
+                padding: 'clamp(3rem, 8vw, 7rem) 5vw',
+                boxSizing: 'border-box',
+                // borderTop: '1px solid var(--bs-gray-600)',
+                backgroundColor: 'var(--bs-gray-800)',
+                color: 'var(--bs-gray-100)',
+            }}
+        >
+            <div style={{ width: '100%', maxWidth: '850px', margin: '0 auto' }}>
+                <h2
+                    style={{
+                        margin: '0 0 1.5rem',
+                        color: 'var(--bs-gray-100)',
+                        fontSize: 'clamp(1.8rem, 4vw, 3.2rem)',
+                        lineHeight: 1.1,
+                    }}
+                >
+                    {props.title}
+                </h2>
+                <div
+                    style={{
+                        color: 'var(--bs-gray-300)',
+                        fontSize: 'clamp(1rem, 1.5vw, 1.2rem)',
+                        lineHeight: 1.75,
+                    }}
+                >
+                    {props.children}
+                </div>
+            </div>
+        </m.section>
+    );
+}
+
 export interface ProjectPageProps {
     title: string;
     image?: string;
+    sections?: ReactNode;
     titleChildren?: ReactNode;
     children?: ReactNode;
     onExit?: () => void;
@@ -120,7 +162,7 @@ export default function GenericProjectPage(props: ProjectPageProps) {
                 animate={{ opacity: 1, transform: 'translate(0, 0)' }}
                 transition={{ delay: 0.75 }}
             >
-                {props.children}
+                {props.sections ?? props.children}
             </m.div>
         </m.div>
     );
