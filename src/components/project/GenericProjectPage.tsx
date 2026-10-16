@@ -4,6 +4,7 @@ import CoolLink from '../CoolLink';
 
 export interface ProjectPageProps {
     title: string;
+    image?: string;
     titleChildren?: ReactNode;
     children?: ReactNode;
     onExit?: () => void;
@@ -14,36 +15,37 @@ export default function GenericProjectPage(props: ProjectPageProps) {
         <m.div
             style={{
                 width: '100%',
-                minHeight: '100%',
+                minHeight: '100vh',
                 position: 'absolute',
                 left: 0,
                 top: 0,
-                zIndex: 100,
-                backgroundColor: 'var(--bs-gray-700)',
-                height: '100%',
-                overflow: 'visible',
+                zIndex: 110,
+                backgroundColor: 'transparent',
+                height: '100vh',
+                overflowY: 'auto',
             }}
-            initial={{ opacity: 0 }}
+            initial={{ opacity: 1 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             // transition={{ staggerChildren: 0.5 }}
         >
-            <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
+            <div style={{ width: '100%' }}>
                 <m.div
                     style={{
                         width: '100%',
-                        height: '50%',
-                        backgroundColor: 'var(--bs-gray-900)',
+                        height: '100vh',
+                        minHeight: '500px',
+                        position: 'relative',
+                        overflow: 'hidden',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
                     }}
-                    initial={{ opacity: 0, transform: 'translate(0, -25vh)' }}
-                    animate={{ opacity: 1, transform: 'translate(0, 0)' }}
-                    transition={{ delay: 0.25 }}
+                    initial={{ opacity: 1 }}
+                    animate={{ opacity: 1 }}
                 >
-                    <div
+                    <m.div
                         style={{
                             position: 'absolute',
                             left: 0,
@@ -52,6 +54,9 @@ export default function GenericProjectPage(props: ProjectPageProps) {
                             width: '100px',
                             height: '30px',
                         }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.2, duration: 0.4, ease: 'easeOut' }}
                     >
                         <CoolLink
                             style={{
@@ -66,16 +71,36 @@ export default function GenericProjectPage(props: ProjectPageProps) {
                         >
                             Back
                         </CoolLink>
-                    </div>
-                    <h1 style={{ fontSize: '64px', color: 'var(--bs-gray-100)' }}>{props.title}</h1>
+                    </m.div>
+                    <m.h1
+                        style={{
+                            position: 'relative',
+                            zIndex: 1,
+                            color: 'var(--bs-gray-100)',
+                            fontSize: 'clamp(2.5rem, 8vw, 7rem)',
+                            textAlign: 'center',
+                            margin: 0,
+                            padding: '0 5vw',
+                        }}
+                        initial={{ opacity: 0, y: 36, scale: 0.9 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        transition={{ type: 'spring', stiffness: 180, damping: 16, mass: 0.8, delay: 0.15 }}
+                    >
+                        {props.title}
+                    </m.h1>
                 </m.div>
                 <m.div
                     style={{
                         width: '100%',
-                        height: '50%',
+                        minHeight: '45vh',
+                        padding: '4rem 5vw',
+                        boxSizing: 'border-box',
                         backgroundColor: 'var(--bs-gray-800)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
                     }}
-                    initial={{ opacity: 0, transform: 'translate(0, 25vh)' }}
+                    initial={{ opacity: 0, transform: 'translate(0, 15vh)' }}
                     animate={{ opacity: 1, transform: 'translate(0, 0)' }}
                     transition={{ delay: 0.5 }}
                 >

@@ -6,6 +6,7 @@ export function PeppersGhostProject(props: { onExit: () => void; key: string }) 
     return (
         <GenericProjectPage
             title={"Pepper's Ghost Holographic Display"}
+            image='/projects/peppers-ghost/banner.jpg'
             {...props}
             titleChildren={
                 <ProjectDetailsContainer

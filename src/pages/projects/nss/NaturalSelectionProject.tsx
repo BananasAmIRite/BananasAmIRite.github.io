@@ -6,6 +6,7 @@ export function NaturalSelectionProject(props: { onExit: () => void; key: string
     return (
         <GenericProjectPage
             title={'Natural Selection Simulation'}
+            image='/projects/nss/banner.png'
             {...props}
             titleChildren={
                 <ProjectDetailsContainer

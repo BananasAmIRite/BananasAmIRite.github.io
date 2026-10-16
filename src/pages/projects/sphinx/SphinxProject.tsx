@@ -1,0 +1,80 @@
+import GenericProjectPage, { makeGenericProject } from '../../../components/project/GenericProjectPage';
+import ProjectDetails, { ProjectDetailsContainer } from '../../../components/project/ProjectDetails';
+import { ProjectBlurb } from '../../ProjectsPage';
+
+export function SphinxProject(props: { onExit: () => void; key: string }) {
+    return (
+        <GenericProjectPage
+            title={'Sphinx'}
+            image={'/projects/sphinx/sphinx.jpg'}
+            {...props}
+            titleChildren={
+                <ProjectDetailsContainer
+                    style={{
+                        justifyContent: 'space-evenly',
+                        alignItems: 'center',
+                        width: '100%',
+                        height: '100%',
+                    }}
+                >
+                    <ProjectDetails
+                        accentColor='var(--bs-gray-600)'
+                        style={{
+                            height: '200px',
+                            borderRadius: '10px',
+                            padding: '5px',
+                            color: 'var(--bs-gray-100)',
+                            width: '200px',
+                            justifyContent: 'center',
+                            display: 'flex',
+                        }}
+                    >
+                        Helllo
+                    </ProjectDetails>
+                    <ProjectDetails
+                        accentColor='var(--bs-gray-600)'
+                        style={{
+                            height: '200px',
+                            borderRadius: '10px',
+                            padding: '5px',
+                            color: 'var(--bs-gray-100)',
+                            width: '200px',
+                            justifyContent: 'center',
+                            display: 'flex',
+                        }}
+                    >
+                        Helllo
+                    </ProjectDetails>
+                </ProjectDetailsContainer>
+            }
+        >
+            <div
+                style={{
+                    width: '100%',
+                    height: '100vh',
+                    backgroundColor: 'transparent',
+                    // , backgroundColor: 'var(--bs-gray-700)'
+                }}
+            ></div>
+        </GenericProjectPage>
+    );
+}
+
+const SphinxData: ProjectBlurb = {
+    id: 'sphinx',
+    title: 'Sphinx',
+
+    image: '/projects/sphinx/sphinx.jpg',
+    blurb: (
+        <>
+            <p>
+                As part of MIT Rocket Team, I developed the controls algorithms and the primary flight software for a vertical-takeoff vertical-landing propeller-powered lander, Sphinx. It is capable of propelling itself and controllably hovering with a set of contra-rotating propellers on a 10-degree gimbal while autonomously navigating using an onboard GPS module. 
+            </p>
+            {/* <a href='https://github.com/BananasAmIRite/'>See more of Rocket Team</a> */}
+        </>
+    ),
+    projPage: makeGenericProject(SphinxProject),
+    allowReadMore: true
+};
+
+export default SphinxData;

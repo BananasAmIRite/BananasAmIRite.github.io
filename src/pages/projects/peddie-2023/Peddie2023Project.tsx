@@ -6,6 +6,7 @@ export function Peddie2023Project(props: { onExit: () => void; key: string }) {
     return (
         <GenericProjectPage
             title={'PickupTrash'}
+            image='/projects/peddie-2023/banner.png'
             {...props}
             titleChildren={
                 <ProjectDetailsContainer

@@ -6,6 +6,7 @@ export function RoboSimulateProject(props: { onExit: () => void; key: string }) 
     return (
         <GenericProjectPage
             title={'Robot Mechanism Visualization'}
+            image='/projects/robo-simulate/banner.png'
             {...props}
             titleChildren={
                 <ProjectDetailsContainer

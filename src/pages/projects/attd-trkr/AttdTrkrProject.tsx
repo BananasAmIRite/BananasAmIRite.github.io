@@ -6,6 +6,7 @@ export function AttdTrkrProject(props: { onExit: () => void; key: string }) {
     return (
         <GenericProjectPage
             title={'Attendance Tracker'}
+            image='/projects/attd-trkr/banner.png'
             {...props}
             titleChildren={
                 <ProjectDetailsContainer

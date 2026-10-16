@@ -23,6 +23,7 @@ export interface ScrollCardProps {
     cardStyle?: CSSProperties;
     cardHoverStyle?: CSSProperties;
     cardActiveStyle?: CSSProperties;
+    expanded?: boolean;
 
     widthOverride?: string | number;
     heightOverride?: string | number;
@@ -64,7 +65,8 @@ export function ScrollCard(props: ScrollCardProps) {
             <div
                 style={{
                     width: '100%',
-                    height: '45%',
+                    height: props.expanded ? '100%' : '45%',
+                    transition: 'height 0.5s ease-in-out',
                 }}
             >
                 {props.image ? (
@@ -93,6 +95,10 @@ export function ScrollCard(props: ScrollCardProps) {
                     flexDirection: 'column',
                     alignItems: 'center',
                     padding: '5%',
+                    opacity: props.expanded ? 0 : 1,
+                    pointerEvents: props.expanded ? 'none' : 'auto',
+                    transform: props.expanded ? 'translateY(100vh)' : 'translateY(0)',
+                    transition: 'opacity 0.25s ease, transform 0.5s ease-in-out',
                 }}
             >
                 {props.title}

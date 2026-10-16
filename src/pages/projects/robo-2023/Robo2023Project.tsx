@@ -12,6 +12,7 @@ export function Robo2023Project(props: { onExit: () => void; key: string }) {
     return (
         <GenericProjectPage
             title={'FRC 2023 Robot'}
+            image='/projects/robo-2023/banner.jpg'
             {...props}
             titleChildren={
                 <ProjectDetailsContainer

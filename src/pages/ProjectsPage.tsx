@@ -12,6 +12,7 @@ import Peddie2023Data from './projects/peddie-2023/Peddie2023Project';
 import DefaultBackgroundAnimation from '../components/animations/DefaultBackgroundAnimation';
 import Robo2025Data from './projects/robo-2025/Robo2025Project';
 import PeppersGhostData from './projects/peppers-ghost/PeppersGhostProject';
+import SphinxData from './projects/sphinx/SphinxProject';
 
 export interface ProjectBlurb {
     id: string;
@@ -21,9 +22,11 @@ export interface ProjectBlurb {
     projPage?: (onExit: () => void, key: string) => ReactNode;
     color?: string;
     hoverColor?: string;
+    allowReadMore?: boolean; 
 }
 
 const projectBlurbs: ProjectBlurb[] = [
+    SphinxData,
     PeppersGhostData,
     AttdTrkrData,
     RoboSimulateData,
@@ -42,17 +45,18 @@ export default function ProjectsPage() {
     const location = useLocation();
 
     const goToProject = (index: number, e: ProjectBlurb) => {
-        // if (!e.projPage) return;
-        // setViewingIndex(index);
-        // setTimeout(() => {
-        //     if (!e.projPage) return;
-        //     setViewingProj(
-        //         e.projPage(() => {
-        //             setViewingProj(null);
-        //             setViewingIndex(-1);
-        //         }, `PROJ-${e.id}`),
-        //     );
-        // }, 500);
+        if (!e.projPage) return;
+        if (!e.allowReadMore) return; 
+        setViewingIndex(index);
+        setTimeout(() => {
+            if (!e.projPage) return;
+            setViewingProj(
+                e.projPage(() => {
+                    setViewingProj(null);
+                    setViewingIndex(-1);
+                }, `PROJ-${e.id}`),
+            );
+        }, 500);
     };
 
     const isSmallScreen = useMediaQuery({ query: '(max-width: 1000px)' });
@@ -63,6 +67,8 @@ export default function ProjectsPage() {
             <motion.div
                 style={{
                     height: '100vh',
+                    position: 'relative',
+                    zIndex: viewingIndex !== -1 ? 60 : 0,
                 }}
                 initial={
                     location.hash.length > 0
@@ -121,6 +127,7 @@ export default function ProjectsPage() {
                                           ? { opacity: 0 }
                                           : {}
                                 }
+                                expanded={viewingIndex === i}
                                 {...colors}
                             />
                         );
