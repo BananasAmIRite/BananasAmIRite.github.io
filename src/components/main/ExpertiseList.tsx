@@ -22,18 +22,19 @@ export default function ExpertiseList() {
                 <ExpertiseContainer>
                     <Expertise
                         projects={[
-                            { to: 'robo-2023', title: '2023 Robot' },
-                            { to: 'robo-2024', title: '2024 Robot' },
-                            { to: 'robo-2025', title: '2025 Robot' },
+                            {to: 'sphinx', title: 'Sphinx'}, 
+                            { to: 'robo-2025', title: '2025 FRC Robot' },
+                            { to: 'robo-2024', title: '2024 FRC Robot' },
+                            { to: 'robo-2023', title: '2023 FRC Robot' },
                         ]}
                     >
                         <ExpertiseBody
-                            title='Robotics'
-                            blurb={`Passionate about developing code for controlling physical components in Java through WPILib. Alum of FRC team 321. `}
+                            title='Robotics & Embedded Systems'
+                            blurb={`Passionate about developing sofware for controlling physical systems. `}
                         />
                     </Expertise>
 
-                    <Expertise projects={[{ to: 'peppers-ghost', title: "Pepper's Ghost Display" }]}>
+                    <Expertise projects={[{ to: 'peppers-ghost', title: "Pepper's Ghost Display" }, {to: 'sphinx', title: 'Sphinx'}]}>
                         <ExpertiseBody
                             title='Electronics'
                             blurb={`Currently learning PCB design & embedded systems programming in C/C++. `}
