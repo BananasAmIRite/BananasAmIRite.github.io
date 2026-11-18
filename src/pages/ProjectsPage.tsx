@@ -46,6 +46,25 @@ const projectBlurbs: ProjectBlurb[] = [
 // Only offer filters for tags that at least one project actually uses, in enum order.
 const usedTags = Object.values(ProjectTag).filter((t) => projectBlurbs.some((p) => p.tags?.includes(t)));
 
+// Held so the browser keeps the decoded images around instead of garbage-collecting them.
+const preloadedImages: HTMLImageElement[] = [];
+
+/**
+ * Download and decode every project card image in the background, so opening the Projects page
+ * doesn't stall on them. Safe to call more than once.
+ */
+export function preloadProjectImages() {
+    if (preloadedImages.length > 0) return;
+    const sources = projectBlurbs.map((p) => p.image).filter((s): s is string => !!s);
+    for (const src of sources.filter((s, i) => sources.indexOf(s) === i)) {
+        const img = new Image();
+        img.decoding = 'async';
+        img.src = src;
+        img.decode?.().catch(() => {}); // decode off the main thread; ignore failures (e.g. 404)
+        preloadedImages.push(img);
+    }
+}
+
 export default function ProjectsPage() {
     const [selectedTags, setSelectedTags] = useState<ProjectTag[]>([]);
     // A project is shown if it has any of the selected tags; no selection shows everything.

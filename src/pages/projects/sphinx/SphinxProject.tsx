@@ -84,7 +84,7 @@ const SphinxData: ProjectBlurb = {
     ),
     projPage: makeGenericProject(SphinxProject),
     allowReadMore: false,
-    tags: [ProjectTag.CONTROLS],
+    tags: [ProjectTag.WORK_IN_PROGRESS, ProjectTag.CONTROLS],
 };
 
 export default SphinxData;

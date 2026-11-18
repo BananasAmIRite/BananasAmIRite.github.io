@@ -79,7 +79,7 @@ const PeppersGhostData: ProjectBlurb = {
             <a href='https://github.com/BananasAmIRite/peppers-ghost-display'>View the Project</a>
         </>
     ),
-    tags: [ProjectTag.ELECTRONICS],
+    tags: [ProjectTag.WORK_IN_PROGRESS, ProjectTag.ELECTRONICS],
 };
 
 export default PeppersGhostData;
