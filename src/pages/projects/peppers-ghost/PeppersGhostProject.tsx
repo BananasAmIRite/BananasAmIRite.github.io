@@ -1,3 +1,4 @@
+import { ProjectTag } from '../../../components/ProjectTag';
 import GenericProjectPage, { makeGenericProject } from '../../../components/project/GenericProjectPage';
 import ProjectDetails, { ProjectDetailsContainer } from '../../../components/project/ProjectDetails';
 import { ProjectBlurb } from '../../ProjectsPage';
@@ -78,6 +79,7 @@ const PeppersGhostData: ProjectBlurb = {
             <a href='https://github.com/BananasAmIRite/peppers-ghost-display'>View the Project</a>
         </>
     ),
+    tags: [ProjectTag.ELECTRONICS],
 };
 
 export default PeppersGhostData;

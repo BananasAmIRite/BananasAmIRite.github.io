@@ -22,6 +22,8 @@ export default function ExpertiseList() {
                 <ExpertiseContainer>
                     <Expertise
                         projects={[
+                            {to: 'asteria', title: 'Asteria'}, 
+                            {to: 'drone', title: 'Drone ESC'}, 
                             {to: 'sphinx', title: 'Sphinx'}, 
                             { to: 'robo-2025', title: '2025 FRC Robot' },
                             { to: 'robo-2024', title: '2024 FRC Robot' },
@@ -29,14 +31,16 @@ export default function ExpertiseList() {
                         ]}
                     >
                         <ExpertiseBody
-                            title='Robotics & Embedded Systems'
+                            title='Controls & Robotics'
                             blurb={`Passionate about developing sofware for controlling physical systems. `}
                         />
                     </Expertise>
 
-                    <Expertise projects={[{ to: 'peppers-ghost', title: "Pepper's Ghost Display" }, {to: 'sphinx', title: 'Sphinx'}]}>
+                    <Expertise projects={[
+                            {to: 'drone', title: 'Drone ESC'}, 
+                        { to: 'peppers-ghost', title: "Pepper's Ghost Display" }, {to: 'sphinx', title: 'Sphinx'}]}>
                         <ExpertiseBody
-                            title='Electronics'
+                            title=' Embedded Systems & Electronics'
                             blurb={`Currently learning PCB design & embedded systems programming in C/C++. `}
                         />
                     </Expertise>
@@ -63,7 +67,8 @@ export default function ExpertiseList() {
                     </Expertise>
                     <Expertise
                         projects={[
-                            { to: 'robo-simulate', title: 'Mechanism Simulation' },
+                            // { to: 'robo-simulate', title: 'Mechanism Simulation' },
+                            {to: 'asteria', title: 'Asteria'}, 
                             { to: 'nss', title: 'Natural Selection' },
                         ]}
                     >

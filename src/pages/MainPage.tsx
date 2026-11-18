@@ -60,7 +60,7 @@ function MainPage() {
                     }}
                 >
                     <h1 style={{ fontSize: 64, alignSelf: 'flex-start' }}>{txt}</h1>
-                    <h2>I dabble in web design, backend design, electronics, and robotics. </h2>
+                    <h2>I dabble in electronics, rocketry, robotics, web design, and backend design. </h2>
 
                     <NavLink style={{ textDecoration: 'underline', fontSize: '36px' }} to='/projects'>
                         See My Projects

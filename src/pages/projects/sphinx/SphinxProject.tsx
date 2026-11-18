@@ -1,3 +1,4 @@
+import { ProjectTag } from '../../../components/ProjectTag';
 import GenericProjectPage, { makeGenericProject, ProjectTextBlock } from '../../../components/project/GenericProjectPage';
 import ProjectDetails, { ProjectDetailsContainer } from '../../../components/project/ProjectDetails';
 import { ProjectBlurb } from '../../ProjectsPage';
@@ -82,7 +83,8 @@ const SphinxData: ProjectBlurb = {
         </>
     ),
     projPage: makeGenericProject(SphinxProject),
-    allowReadMore: false
+    allowReadMore: false,
+    tags: [ProjectTag.CONTROLS],
 };
 
 export default SphinxData;

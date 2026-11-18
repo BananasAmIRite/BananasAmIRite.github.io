@@ -1,3 +1,4 @@
+import { ProjectTag } from '../../../components/ProjectTag';
 import GenericProjectPage, { makeGenericProject } from '../../../components/project/GenericProjectPage';
 import ProjectDetails, { ProjectDetailsContainer } from '../../../components/project/ProjectDetails';
 import { ProjectBlurb } from '../../ProjectsPage';
@@ -67,6 +68,7 @@ const Robo2024Data: ProjectBlurb = {
         </>
     ),
     projPage: makeGenericProject(Robo2024Project),
+    tags: [ProjectTag.CONTROLS],
 };
 
 export default Robo2024Data;

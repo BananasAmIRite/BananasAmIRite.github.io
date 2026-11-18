@@ -13,6 +13,9 @@ import DefaultBackgroundAnimation from '../components/animations/DefaultBackgrou
 import Robo2025Data from './projects/robo-2025/Robo2025Project';
 import PeppersGhostData from './projects/peppers-ghost/PeppersGhostProject';
 import SphinxData from './projects/sphinx/SphinxProject';
+import DroneData from './projects/drone/Drone';
+import { ProjectTag, ProjectTagList } from '../components/ProjectTag';
+import AsteriaData from './projects/asteria/Asteria';
 
 export interface ProjectBlurb {
     id: string;
@@ -23,13 +26,16 @@ export interface ProjectBlurb {
     color?: string;
     hoverColor?: string;
     allowReadMore?: boolean; 
+    tags?: ProjectTag[];
 }
 
 const projectBlurbs: ProjectBlurb[] = [
+    AsteriaData,
+    DroneData, 
     SphinxData,
     PeppersGhostData,
     AttdTrkrData,
-    RoboSimulateData,
+    // RoboSimulateData,
     Peddie2023Data,
     Robo2025Data,
     Robo2024Data,
@@ -37,7 +43,17 @@ const projectBlurbs: ProjectBlurb[] = [
     NaturalSelectionData,
 ];
 
+// Only offer filters for tags that at least one project actually uses, in enum order.
+const usedTags = Object.values(ProjectTag).filter((t) => projectBlurbs.some((p) => p.tags?.includes(t)));
+
 export default function ProjectsPage() {
+    const [selectedTags, setSelectedTags] = useState<ProjectTag[]>([]);
+    // A project is shown if it has any of the selected tags; no selection shows everything.
+    const visibleBlurbs =
+        selectedTags.length === 0
+            ? projectBlurbs
+            : projectBlurbs.filter((p) => p.tags?.some((t) => selectedTags.includes(t)));
+
     const [viewingProject, setViewingProj] = useState<ReactNode | null>(null);
     const containerRef = useRef();
     const [viewingIndex, setViewingIndex] = useState<number>(-1);
@@ -80,6 +96,8 @@ export default function ProjectsPage() {
                 transition={{ ease: 'easeOut', duration: 0.5 }}
             >
                 <ScrollCardContainer
+                    // remount on filter change so the active card and scroll position reset
+                    key={selectedTags.join(',')}
                     ref={containerRef}
                     cardStyles={{
                         cardStyle: {
@@ -95,7 +113,7 @@ export default function ProjectsPage() {
                         bgHoverColor: 'var(--bs-gray-700)',
                         cardActiveStyle: {},
                     }}
-                    cards={projectBlurbs.map((e, i) => {
+                    cards={visibleBlurbs.map((e, i) => {
                         const colors = {
                             ...(e.color !== undefined && { bgColor: e.color }),
                             ...(e.hoverColor !== undefined && { bgHoverColor: e.hoverColor }),
@@ -106,15 +124,17 @@ export default function ProjectsPage() {
                                 id={e.id}
                                 image={e.image ?? ''}
                                 title={
-                                    <h1
-                                        style={{
-                                            fontSize: '48px',
-                                            alignSelf: 'start',
-                                            fontWeight: 700,
-                                        }}
-                                    >
-                                        {e.title}
-                                    </h1>
+                                    <div style={{ alignSelf: 'start' }}>
+                                        <h1
+                                            style={{
+                                                fontSize: '48px',
+                                                fontWeight: 700,
+                                            }}
+                                        >
+                                            {e.title}
+                                        </h1>
+                                        <ProjectTagList tags={e.tags} />
+                                    </div>
                                 }
                                 body={e.blurb}
                                 onClick={() => {

@@ -1,3 +1,4 @@
+import { ProjectTag } from '../../../components/ProjectTag';
 import GenericProjectPage, { makeGenericProject } from '../../../components/project/GenericProjectPage';
 import PictureCarousel from '../../../components/project/PictureCarousel';
 import ProjectDetails, {
@@ -81,6 +82,7 @@ const Robo2023Data: ProjectBlurb = {
             <a href='https://github.com/RoboLancers/FRC-Main-2023'>View the Project</a>
         </>
     ),
+    tags: [ProjectTag.CONTROLS],
 };
 
 export default Robo2023Data;

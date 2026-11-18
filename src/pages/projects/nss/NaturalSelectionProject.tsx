@@ -1,3 +1,4 @@
+import { ProjectTag } from '../../../components/ProjectTag';
 import GenericProjectPage, { makeGenericProject } from '../../../components/project/GenericProjectPage';
 import ProjectDetails, { ProjectDetailsContainer } from '../../../components/project/ProjectDetails';
 import { ProjectBlurb } from '../../ProjectsPage';
@@ -83,6 +84,7 @@ const NaturalSelectionData: ProjectBlurb = {
         </>
     ),
     projPage: makeGenericProject(NaturalSelectionProject),
+    tags: [ProjectTag.SIMULATIONS],
 };
 
 export default NaturalSelectionData;

@@ -1,3 +1,4 @@
+import { ProjectTag } from '../../../components/ProjectTag';
 import GenericProjectPage, { makeGenericProject } from '../../../components/project/GenericProjectPage';
 import ProjectDetails, { ProjectDetailsContainer } from '../../../components/project/ProjectDetails';
 import { ProjectBlurb } from '../../ProjectsPage';
@@ -76,6 +77,7 @@ const RoboSimulateData: ProjectBlurb = {
         </>
     ),
     projPage: makeGenericProject(RoboSimulateProject),
+    tags: [ProjectTag.SIMULATIONS],
 };
 
 export default RoboSimulateData;
